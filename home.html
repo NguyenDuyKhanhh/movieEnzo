@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./grid.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Roboto+Flex:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <div class="overlay"><div class="results-search"></div>
+    </div>
+
+    <div class="header grid wide">
+        
+        <img src="https://cdn2.steamgriddb.com/file/sgdb-cdn/logo/1bedd8e0dad21b385b0e6faa09042843.png" alt="">
+        <form class="form">
+            <label for="search">
+                <input required=""  placeholder="search movie" id="input-search" type="text"
+                    oninput="searchMovie()">
+                <div class="icon">
+                    <i class='bx bx-search-alt-2'></i>
+                    <i class='bx bx-left-arrow-alt'></i>
+                </div>
+                <div class="close">
+                    <i class='bx bx-x'></i>
+                </div>
+            </label>
+            <div class="loader loader-movies">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+                <div class="bar4"></div>
+                <div class="bar5"></div>
+                <div class="bar6"></div>
+                <div class="bar7"></div>
+                <div class="bar8"></div>
+                <div class="bar9"></div>
+                <div class="bar10"></div>
+                <div class="bar11"></div>
+                <div class="bar12"></div>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="slider-container grid wide">
+
+        <div class="slider">
+            <img src="https://static1.squarespace.com/static/5efce5920d28887981c5bd9b/5efdf3ce4c0f85227cad0448/63b3c7f15f6d412cfa2740cc/1672727694792/M3GAN+banner+2.jpg?format=1500w"
+                alt="Image 1">
+            <img src="https://staticc.sportskeeda.com/editor/2023/03/5440a-16780002412683-1920.jpg" alt="Image 2">
+            <img src="https://cdn.sforum.vn/sforum/wp-content/uploads/2023/02/lich-chieu-phim-winnie-the-pooh-blood-and-honey-1.jpg"
+                alt="Image 3">
+            <img src="https://gocphim.net/wp-content/uploads/2023/02/65-MOVIE.jpg" alt="">
+            <img src="https://cuongphim.com/wp-content/uploads/2023/02/giai-thich-afte-credits-quantumania-cuong-phim.jpg"
+                alt="">
+        </div>
+        <div class="navigation-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+    <div id="popular-series" class="series  grid wide">
+        <p>Popular movies</p>
+        <h1>Page: 1</h1>
+    </div>
+    <div class="navbar">
+        <ul>
+            <li>
+                <a href="./home.html">
+                    <i class='bx bx-home'></i>
+                    Home
+                </a>
+            </li>
+            <li>
+                <a href="./trending.html">
+                    <i class='bx bxs-hot'></i>
+                    Trending
+                </a>
+            </li>
+            <li>
+                <a href="./movie.html">
+                    <i class='bx bx-movie-play'></i>
+                    Movies
+                </a>
+            </li>
+            <li>
+                <a id="favourite">
+                    <i class='bx bx-heart'></i>
+                    Favourites
+                </a>
+            </li>
+            <li>
+
+                <label class="switch" for="toggle-mode">
+
+                    <input type="checkbox" id="toggle-mode">
+                    <span class="slider"></span>
+                </label>
+
+            </li>
+        </ul>
+    </div>
+
+    <div id="home" class="movie grid wide"></div>
+
+    <div class="next-page">
+        <a href='#'><button class="prev">Prev page</button></a>
+        <a href='#'><button class="next">Next page</button></a>
+    </div>
+
+
+
+    <script type="text/babel" src="./main.js"></script>
+
+
+</body>
+
+</html>
