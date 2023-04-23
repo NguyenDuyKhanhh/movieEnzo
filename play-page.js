@@ -2,8 +2,6 @@ let idCard = JSON.parse(localStorage.getItem("idCard"));
 const containPlayPage = document.querySelector(".play-page");
 var saveArray = JSON.parse(localStorage.getItem("saveMovie"));
 const cardMovie = document.querySelector("#playpage");
-
-console.log(idCard);
 let currentImgSearch = "";
 let currentTitleSearch = "";
 let currentLanguageSearch = "";
@@ -17,8 +15,7 @@ function lookForMoviesfromIdCard() {
   saveArray.forEach((item) => {
     if (idCard == item.id) {
       {
-        console.log(typeof item);
-        console.log(item);
+
         currentImgSearch = item.poster_path;
         currentTitleSearch = item.title;
         currentLanguageSearch = item.original_language;
@@ -35,7 +32,7 @@ async function handleVideo(idCard) {
   dataVideos = await fetch(apiMovie)
     .then((res) => res.json())
     .then((dataVideos) => {
-      console.log(dataVideos);
+
       dataVideos.results[0].key =
         "https://www.youtube.com/embed/" + dataVideos.results[0].key;
       keyVideo = dataVideos.results[0].key;
@@ -80,7 +77,7 @@ async function handleVideo(idCard) {
         );
       }
       ReactDOM.render(<ReRenderSuccess />, containPlayPage);
-      console.log(document.querySelector("iframe"));
+   
     })
     .catch(() => {
       function ReRenderSearch() {
@@ -179,7 +176,6 @@ async function handleSimilar() {
       const getMoviesSimilar = document.querySelectorAll(".similar");
       getMoviesSimilar.forEach((movie, index) => {
         movie.addEventListener("click", () => {
-          console.log(saveArray);
           idCard = movie.id;
           lookForMoviesfromIdCard();
           handleVideo(idCard);
