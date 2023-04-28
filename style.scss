@@ -14,6 +14,7 @@ body {
   --background-color: rgb(8, 27, 39);
   --box-color: rgb(46, 46, 58);
   --text-color: rgb(234, 166, 51);
+  --background-border: rgba(255, 255, 255, 0.116);
   width: 100%;
   height: 100%;
   background-color: var(--background-color);
@@ -25,6 +26,7 @@ body.dark {
   --background-color: rgb(250, 250, 250);
   --box-color: #e4e5f1;
   --text-color: #484b6a;
+  --background-border: #484b6a2a;
   width: 100%;
   height: 100%;
   background-color: var(--background-color);
@@ -103,10 +105,10 @@ body::-webkit-scrollbar-track {
     width: 100%;
     height: var(--height);
     input {
-    width: 100%;
-    padding-inline-start: calc(var(--padding) + var(--gap));
+    width: 80%;
+    padding-inline-start: calc(var(--padding) + var(--gap)+ 20px);
     outline: none;
-    background-color: var(--box-color);
+    background-color: #484b6a;
     border: 0;
     color: var(--origin-color);
 
@@ -138,6 +140,7 @@ body::-webkit-scrollbar-track {
         bottom: 12.5px;
         opacity: 0;
         cursor: pointer;
+
     }
   }
   }
@@ -182,6 +185,7 @@ body::-webkit-scrollbar-track {
   right: 10px;
   top: 25%;
   border-radius: 10px;
+  display: none;
 }
 
 .loader div {
@@ -464,7 +468,7 @@ body::-webkit-scrollbar-track {
     }
   }
 }
-.next-page {
+.exchange-page {
   display: flex;
   justify-content: center;
   button {
@@ -534,13 +538,15 @@ iframe::before {
   transition: .3s;
   .contain-results {
     display: flex;
-
-    margin: 10px 0;
+    border-bottom: 1px solid var(--background-border);
+   
+    padding: 10px 0;
     img {
       width: 60px;
       height: 60px;
       object-fit: cover;
       margin-right: 20px;
+      padding-left: 5px;
     }
     ul {
       display: flex;
@@ -548,6 +554,7 @@ iframe::before {
       li {
         color: var(--text-color);
         font-size: 15px;
+        margin-bottom: 5px;
       }
       p {
         color: gray;
@@ -809,6 +816,9 @@ iframe::before {
   }
   .header {
     padding: 10px;
+    img{
+      width: 160px;
+    }
   }
   .contain-movies{
     top: 8%;

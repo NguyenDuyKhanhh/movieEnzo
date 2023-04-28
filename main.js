@@ -4,6 +4,9 @@ const btnsPage = document.querySelector(".navbar");
 const slides = document.querySelectorAll(".banner img");
 const nextSlider = document.querySelector(".bx-chevron-right");
 const prevSlider = document.querySelector(".bx-chevron-left");
+const next = document.querySelector('.exchange-page a .next')
+const prev = document.querySelector('.exchange-page a .prev')
+
 const loader = document.querySelector(".loader");
 const favourites = document.querySelector("#favourite");
 const nowPage = document.querySelector("#popular-series h1");
@@ -14,7 +17,8 @@ let dataHome = "";
 let dataTrending = "";
 let dataTopRate = "";
 let scrollInterval;
-let currentPage;
+let currentPage =1;
+
 
 
 async function movieTrending(){
@@ -25,7 +29,6 @@ async function movieTrending(){
 }
  var saveDataTrending = JSON.parse(localStorage.getItem("saveDataTrending"));
  console.log(saveDataTrending)
-
 async function movieTopRate(){
   let apiTopRate = `https://api.themoviedb.org/3/movie/top_rated?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&page=1`;
     dataTopRate = await fetch(apiTopRate).then((res) => res.json());
@@ -35,6 +38,58 @@ async function movieTopRate(){
 }
  var  saveDataTopRate = JSON.parse(localStorage.getItem("savetoprate"));
  console.log(saveDataTopRate)
+
+ async function movieHome(page) {
+  await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&page=${page}`)
+    .then(response => response.json())
+    .then(data => {
+      localStorage.setItem(`saveDataHome${page}`, JSON.stringify(data));
+      return data
+    });
+}
+
+function getDataFromLocalStorage(page) {
+  const items = localStorage.getItem(`saveDataHome${page}`);
+  return items ? JSON.parse(items) : null;
+}
+let initPageHome = getDataFromLocalStorage(currentPage).results
+
+
+function nextPage() {
+  if(currentPage != 3){
+    currentPage ++;
+
+    initPageHome = getDataFromLocalStorage(currentPage).results
+    renderMovie()
+    nowPage.innerText =  'Page ' + currentPage
+    next.style.display= 'block'
+  }
+  if(currentPage ==3){
+    next.style.display= 'none'
+    
+  }
+  if(currentPage>1 && currentPage <=3){
+    prev.style.display= 'block'
+  }
+}
+
+function prevPage() {
+  if(currentPage != 1){
+    currentPage--;
+ 
+    initPageHome = getDataFromLocalStorage(currentPage).results
+    renderMovie()
+    nowPage.innerText =  'Page ' + currentPage
+    prev.style.display= 'block'
+  }
+  if(currentPage ==1){
+    prev.style.display= 'none'
+  }
+  if(currentPage<=2){
+    next.style.display = 'block '
+  }
+}
+
 
 function handleData(data) {
   for (let i = 0; i < data.length; i++) {
@@ -51,13 +106,8 @@ function handleData(data) {
   }
 }
 
-async function movieHome(){
-  let api = `https://api.themoviedb.org/3/discover/movie?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`;
-  dataHome = await fetch(api).then((res) => res.json());
-  const dataMovieHome = dataHome.results
-  localStorage.setItem("saveDataHome", JSON.stringify(dataMovieHome));
-} 
-function movieMain() {
+
+function renderMovie() {
 
   function Render(props) {
       return (
@@ -96,9 +146,7 @@ function movieMain() {
         ) 
     }
   if (containMovie.id == "home" || containMovie.id == null){
-
-  
-    ReactDOM.render(<App child={saveDataHome}/>, containMovie);
+    ReactDOM.render(<App child={initPageHome}/>, containMovie);
   }
   else if (containMovie.id == "trending"){
 
@@ -118,7 +166,7 @@ function movieMain() {
   });
 }
  if(containMovie.id == "home" || containMovie.id == "trending" || containMovie.id == "movie"){
-  movieMain();
+  renderMovie();
  }
 
 
@@ -173,31 +221,29 @@ function getDataAllPage() {
         })
         .catch(()=>{
           loader.style.display = "block"
-        })
-        
+        })   
     }
-    var saveArrayTemporary = JSON.parse(localStorage.getItem("save"));
-
-    let saveId = [];
-
-    for (let i = 0; i < saveArrayTemporary.length; i++) {
-        saveId.push(saveArrayTemporary[i].id);
-    }
-    saveDataTrending.forEach((item, index) => {
-        if (!saveId.includes(item.id)) {
-        saveArrayTemporary.push(item);
-        }
-    });
-    saveDataTopRate.forEach((item, index) => {
-        if (!saveId.includes(item.id)) {
-        saveArrayTemporary.push(item);
-        }
-    });
-
-    handleData(saveArrayTemporary);
-    localStorage.setItem("saveMovie", JSON.stringify(saveArrayTemporary));
 }
-getDataAllPage()
+var saveArrayTemporary = JSON.parse(localStorage.getItem("save"));
+
+let saveId = [];
+
+for (let i = 0; i < saveArrayTemporary.length; i++) {
+    saveId.push(saveArrayTemporary[i].id);
+}
+saveDataTrending.forEach((item, index) => {
+    if (!saveId.includes(item.id)) {
+    saveArrayTemporary.push(item);
+    }
+});
+saveDataTopRate.forEach((item, index) => {
+    if (!saveId.includes(item.id)) {
+    saveArrayTemporary.push(item);
+    }
+});
+
+handleData(saveArrayTemporary);
+localStorage.setItem("saveMovie", JSON.stringify(saveArrayTemporary));
 
 var saveArray = JSON.parse(localStorage.getItem("saveMovie"));
 
