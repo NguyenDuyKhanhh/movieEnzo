@@ -112,7 +112,7 @@ body::-webkit-scrollbar-track {
   height: var(--height);
 }
 .header .form label input {
-  width: 80%;
+  width: 83%;
   -webkit-padding-start: calc(var(--padding) + var(--gap));
           padding-inline-start: calc(var(--padding) + var(--gap));
   outline: none;
@@ -180,7 +180,6 @@ body::-webkit-scrollbar-track {
   right: 10px;
   top: 25%;
   border-radius: 10px;
-  display: none;
 }
 
 .loader div {
@@ -752,6 +751,9 @@ iframe::before {
   }
   .header img {
     width: 140px;
+  }
+  .header .form {
+    margin-top: 2px;
   }
 }
 @media (min-width: 600px) and (max-width: 739px) {

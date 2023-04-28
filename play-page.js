@@ -11,7 +11,7 @@ let currentVoteSearch = "";
 let dataVideos = "";
 let keyVideo = "";
 let dataSimilar = "";
-function lookForMoviesfromIdCard() {
+function checkIdCard() {
   saveArray.forEach((item) => {
     if (idCard == item.id) {
       {
@@ -36,7 +36,7 @@ async function handleVideo(idCard) {
       dataVideos.results[0].key =
         "https://www.youtube.com/embed/" + dataVideos.results[0].key;
       keyVideo = dataVideos.results[0].key;
-      lookForMoviesfromIdCard();
+      checkIdCard();
       function ReRenderSuccess() {
         return (
           <div className="row">
@@ -51,8 +51,7 @@ async function handleVideo(idCard) {
                 <p>
                   <span>Status:</span> Trailer
                 </p>
-                <h2>
-                  {" "}
+                <h2>  
                   <span>language:</span> {currentLanguageSearch}
                 </h2>
                 <h3>
@@ -95,7 +94,6 @@ async function handleVideo(idCard) {
                   <span>Status:</span> Trailer
                 </p>
                 <h2>
-                  {" "}
                   <span>language:</span> {currentLanguageSearch}
                 </h2>
                 <h3>
@@ -177,7 +175,7 @@ async function handleSimilar() {
       getMoviesSimilar.forEach((movie, index) => {
         movie.addEventListener("click", () => {
           idCard = movie.id;
-          lookForMoviesfromIdCard();
+          checkIdCard();
           handleVideo(idCard);
         });
       });

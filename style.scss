@@ -105,10 +105,10 @@ body::-webkit-scrollbar-track {
     width: 100%;
     height: var(--height);
     input {
-    width: 80%;
-    padding-inline-start: calc(var(--padding) + var(--gap)+ 20px);
+    width: 83%;
+    padding-inline-start: calc(var(--padding) + var(--gap));
     outline: none;
-    background-color: #484b6a;
+    background-color: transparent;
     border: 0;
     color: var(--origin-color);
 
@@ -185,7 +185,7 @@ body::-webkit-scrollbar-track {
   right: 10px;
   top: 25%;
   border-radius: 10px;
-  display: none;
+
 }
 
 .loader div {
@@ -278,7 +278,7 @@ body::-webkit-scrollbar-track {
     display: flex;
     overflow-x: scroll;
     scroll-snap-type: x mandatory;
-
+    
     img {
       scroll-snap-align: start;
       width: 100%;
@@ -798,6 +798,9 @@ iframe::before {
     padding: 10px;
     img {
       width: 140px;
+    }
+    .form{
+      margin-top: 2px;
     }
   }
 }

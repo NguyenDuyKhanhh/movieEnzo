@@ -6,6 +6,8 @@ const nextSlider = document.querySelector(".bx-chevron-right");
 const prevSlider = document.querySelector(".bx-chevron-left");
 const next = document.querySelector('.exchange-page a .next')
 const prev = document.querySelector('.exchange-page a .prev')
+const linkNext = document.querySelector(".exchange-page #link-next")
+const linkPrev = document.querySelector(".exchange-page #link-prev")
 
 const loader = document.querySelector(".loader");
 const favourites = document.querySelector("#favourite");
@@ -28,18 +30,16 @@ async function movieTrending(){
   localStorage.setItem("saveDataTrending", JSON.stringify(dataTrendingMovie));
 }
  var saveDataTrending = JSON.parse(localStorage.getItem("saveDataTrending"));
- console.log(saveDataTrending)
+
 async function movieTopRate(){
   let apiTopRate = `https://api.themoviedb.org/3/movie/top_rated?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&page=1`;
     dataTopRate = await fetch(apiTopRate).then((res) => res.json());
     const dataTopRateMovie = dataTopRate.results;
-    localStorage.setItem("savetoprate", JSON.stringify(dataTopRateMovie));
-   
+    localStorage.setItem("savetoprate", JSON.stringify(dataTopRateMovie)); 
 }
- var  saveDataTopRate = JSON.parse(localStorage.getItem("savetoprate"));
- console.log(saveDataTopRate)
+ var saveDataTopRate = JSON.parse(localStorage.getItem("savetoprate"));
 
- async function movieHome(page) {
+async function movieHome(page) {
   await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&page=${page}`)
     .then(response => response.json())
     .then(data => {
@@ -61,7 +61,6 @@ function nextPage() {
 
     initPageHome = getDataFromLocalStorage(currentPage).results
     renderMovie()
-    nowPage.innerText =  'Page ' + currentPage
     next.style.display= 'block'
   }
   if(currentPage ==3){
@@ -212,19 +211,29 @@ function getDataAllPage() {
         )
         .then((res) => res.json())
         .then((data) => {
-          loader.style.display = "none"
+          
             data.results.forEach(component => {
             handleData(component)
             arrayAllMovies.push(component);
             localStorage.setItem("save", JSON.stringify(arrayAllMovies));
             });
         })
-        .catch(()=>{
-          loader.style.display = "block"
-        })   
     }
 }
-var saveArrayTemporary = JSON.parse(localStorage.getItem("save"));
+
+function getDataTemporary(){
+  const checkDataTemporary = localStorage.getItem("save");  
+    if(checkDataTemporary){
+      loader.style.display = "none"
+      return JSON.parse(checkDataTemporary)
+    }
+    else if(!checkDataTemporary){
+      loader.style.display = "block"
+      return null;
+    }
+}
+let saveArrayTemporary = getDataTemporary()
+
 
 let saveId = [];
 
