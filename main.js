@@ -39,29 +39,19 @@ async function movieHome(page) {
   dataHome = await fetch(
     `https://api.themoviedb.org/3/discover/movie?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`
   ).then((response) => response.json());
-  localStorage.setItem(`saveDataHome${page}`, JSON.stringify(dataHome));
+ localStorage.setItem(`saveDataHome${page}`, JSON.stringify(dataHome.results));
 }
-
 function getDataFromLocalStorage(page) {
   const items = localStorage.getItem(`saveDataHome${page}`);
   return items ? JSON.parse(items) : null;
 }
+let initPageHome = getDataFromLocalStorage(currentPage);
 
-function checkData(currentPage) {
-  let initPageHome = getDataFromLocalStorage(currentPage).results;
-  if (initPageHome != undefined) {
-    initPageHome = getDataFromLocalStorage(currentPage).results;
-  } else if (initPageHome == undefined) {
-    initPageHome = getDataFromLocalStorage(currentPage);
-  }
-  return initPageHome;
-}
-checkData(1);
 function nextPage() {
   if (currentPage != 3) {
     currentPage++;
 
-    checkData(currentPage);
+    initPageHome = getDataFromLocalStorage(currentPage)
     renderMovie();
     nowPage.innerText = "Page " + currentPage;
     next.style.display = "block";
@@ -78,7 +68,7 @@ function prevPage() {
   if (currentPage != 1) {
     currentPage--;
 
-    checkData(currentPage);
+    initPageHome = getDataFromLocalStorage(currentPage)
     renderMovie();
     nowPage.innerText = "Page " + currentPage;
     prev.style.display = "block";
@@ -141,7 +131,7 @@ function renderMovie() {
     );
   }
   if (containMovie.id == "home" || containMovie.id == null) {
-    ReactDOM.render(<App child={checkData(currentPage)} />, containMovie);
+    ReactDOM.render(<App child={initPageHome} />, containMovie);
   } else if (containMovie.id == "trending") {
     ReactDOM.render(<App child={saveDataTrending} />, containMovie);
   }
