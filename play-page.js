@@ -1,6 +1,6 @@
 let idCard = JSON.parse(localStorage.getItem("idCard"));
 const containPlayPage = document.querySelector(".play-page");
-var saveArray = JSON.parse(localStorage.getItem("saveMovie"));
+var allDataMovies = JSON.parse(localStorage.getItem("allDataMovies"));
 const cardMovie = document.querySelector("#playpage");
 let currentImgSearch = "";
 let currentTitleSearch = "";
@@ -12,7 +12,7 @@ let dataVideos = "";
 let keyVideo = "";
 let dataSimilar = "";
 function checkIdCard() {
-  saveArray.forEach((item) => {
+  allDataMovies.forEach((item) => {
     if (idCard == item.id) {
       {
 
@@ -117,18 +117,18 @@ async function handleVideo(idCard) {
 handleVideo(idCard);
 
 function handleData(data) {
-  for (let i = 0; i < data.length; i++) {
-    if (data[i].title == undefined) {
-      data[i].title = data[i].name;
+  data.forEach(item=>{
+     if (item.title == undefined) {
+      item.title = item.name;
     }
-    if (data[i].release_date == undefined) {
-      data[i].release_date = data[i].first_air_date;
+    if (item.release_date == undefined) {
+      item.release_date = item.first_air_date;
     }
-    data[i].poster_path =
-      "https://image.tmdb.org/t/p/w500" + data[i].poster_path;
-    data[i].backdrop_path =
-      "https://image.tmdb.org/t/p/w500" + data[i].backdrop_path;
-  }
+     item.poster_path =
+      "https://image.tmdb.org/t/p/w500" + item.poster_path;
+    item.backdrop_path =
+      "https://image.tmdb.org/t/p/w500" + item.backdrop_path;
+  })
 }
 
 async function handleSimilar() {
@@ -138,7 +138,7 @@ async function handleSimilar() {
     .then((dataSimilar) => {
       const dataSimilarMovies = dataSimilar.results;
       dataSimilarMovies.forEach((item) => {
-        saveArray.push(item);
+        allDataMovies.push(item);
         
       });
     

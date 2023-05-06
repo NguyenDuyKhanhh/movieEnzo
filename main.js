@@ -12,47 +12,65 @@ const favourites = document.querySelector("#favourite");
 const nowPage = document.querySelector("#popular-series h1");
 const slider = document.querySelector(".slider");
 const dots = document.querySelectorAll(".dot");
+var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+link.type = 'image/x-icon';
+link.rel = 'shortcut icon';
+link.href = 'https://steamuserimages-a.akamaihd.net/ugc/911294107789597240/84A57C1A75DC12BA21FA81DD0C4255490EEC05F8/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false';
+document.getElementsByTagName('head')[0].appendChild(link);
 
-let dataHome = "";
-let dataTrending = "";
-let dataTopRate = "";
 let scrollInterval;
 let currentPage = 1;
-
+function handleData(data) {
+  data.forEach(item=>{
+     if (item.title == undefined) {
+      item.title = item.name;
+    }
+    if (item.release_date == undefined) {
+      item.release_date = item.first_air_date;
+    }
+     item.poster_path =
+      "https://image.tmdb.org/t/p/w500" + item.poster_path;
+    item.backdrop_path =
+      "https://image.tmdb.org/t/p/w500" + item.backdrop_path;
+  })
+}
 async function movieTrending() {
   let apiTrending = `https://api.themoviedb.org/3/trending/all/day?api_key=21a74c685cbdafbea65d58ebd993168f`;
-  dataTrending = await fetch(apiTrending).then((res) => res.json());
-  const dataTrendingMovie = dataTrending.results;
-  localStorage.setItem("saveDataTrending", JSON.stringify(dataTrendingMovie));
+  await fetch(apiTrending).then((res) => res.json())
+  .then(data=>{
+   renderMovie(data.results)
+   saveID()
+  }) 
+
 }
-var saveDataTrending = JSON.parse(localStorage.getItem("saveDataTrending"));
+containMovie.id == "trending" ? movieTrending() : null
 
 async function movieTopRate() {
   let apiTopRate = `https://api.themoviedb.org/3/movie/top_rated?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&page=1`;
-  dataTopRate = await fetch(apiTopRate).then((res) => res.json());
-  const dataTopRateMovie = dataTopRate.results;
-  localStorage.setItem("savetoprate", JSON.stringify(dataTopRateMovie));
+  await fetch(apiTopRate).then((res) => res.json())
+  .then(data=>{
+     renderMovie(data.results)
+     saveID()
+  })
 }
-var saveDataTopRate = JSON.parse(localStorage.getItem("savetoprate"));
+containMovie.id == "movie" ? movieTopRate() : null
 
-async function movieHome(page) {
-  dataHome = await fetch(
-    `https://api.themoviedb.org/3/discover/movie?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`
-  ).then((response) => response.json());
- localStorage.setItem(`saveDataHome${page}`, JSON.stringify(dataHome.results));
+async function movieHome(page){
+  await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`)
+  .then(res => res.json())
+  .then(data=>{
+     renderMovie(data.results)
+     saveID()
+  })
 }
-function getDataFromLocalStorage(page) {
-  const items = localStorage.getItem(`saveDataHome${page}`);
-  return items ? JSON.parse(items) : null;
-}
-let initPageHome = getDataFromLocalStorage(currentPage);
+containMovie.id == "home" ? movieHome(currentPage ) : null
+
+
 
 function nextPage() {
   if (currentPage != 3) {
     currentPage++;
-
-    initPageHome = getDataFromLocalStorage(currentPage)
-    renderMovie();
+    movieHome(currentPage)
     nowPage.innerText = "Page " + currentPage;
     next.style.display = "block";
   }
@@ -67,9 +85,7 @@ function nextPage() {
 function prevPage() {
   if (currentPage != 1) {
     currentPage--;
-
-    initPageHome = getDataFromLocalStorage(currentPage)
-    renderMovie();
+    movieHome(currentPage)
     nowPage.innerText = "Page " + currentPage;
     prev.style.display = "block";
   }
@@ -80,23 +96,7 @@ function prevPage() {
     next.style.display = "block ";
   }
 }
-
-function handleData(data) {
-  for (let i = 0; i < data.length; i++) {
-    if (data[i].title == undefined) {
-      data[i].title = data[i].name;
-    }
-    if (data[i].release_date == undefined) {
-      data[i].release_date = data[i].first_air_date;
-    }
-    data[i].poster_path =
-      "https://image.tmdb.org/t/p/w500" + data[i].poster_path;
-    data[i].backdrop_path =
-      "https://image.tmdb.org/t/p/w500" + data[i].backdrop_path;
-  }
-}
-
-function renderMovie() {
+function renderMovie(data) {
   function Render(props) {
     return (
       <div className="col l-3 m-4 c-4" key={props.id}>
@@ -114,8 +114,8 @@ function renderMovie() {
       </div>
     );
   }
-  function App({ child }) {
-    handleData(child);
+  function App({child}) {
+    handleData(child)
     return (
       <div className="row">
         {child.map((cardMovie) => (
@@ -130,15 +130,13 @@ function renderMovie() {
       </div>
     );
   }
-  if (containMovie.id == "home" || containMovie.id == null) {
-    ReactDOM.render(<App child={initPageHome} />, containMovie);
-  } else if (containMovie.id == "trending") {
-    ReactDOM.render(<App child={saveDataTrending} />, containMovie);
-  }
-  if (containMovie.id == "movie") {
-    ReactDOM.render(<App child={saveDataTopRate} />, containMovie);
-  }
+    
+    ReactDOM.render(<App child={data} />, containMovie);
 
+}
+
+
+function saveID(){
   const getCards = document.querySelectorAll(".card");
   getCards.forEach((getCard) => {
     getCard.addEventListener("click", () => {
@@ -147,13 +145,7 @@ function renderMovie() {
     });
   });
 }
-if (
-  containMovie.id == "home" ||
-  containMovie.id == "trending" ||
-  containMovie.id == "movie"
-) {
-  renderMovie();
-}
+
 
 function handleSlider() {
   dots.forEach((dot, index) => {
@@ -187,106 +179,121 @@ function handleSlider() {
   setSliderInterval();
 }
 handleSlider();
+let getAllDataPopular = [];
+let getId = [];
 
-function getDataAllPage() {
-  let arrayAllMovies = [];
-  for (let i = 1; i <= 3; i++) {
-    fetch(
-      `https://api.themoviedb.org/3/discover/movie?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${i}&with_watch_monetization_types=flatrate`
+function gatherAllPage (data){
+  data.forEach(item=>
+    getAllDataPopular.push(item)
     )
-      .then((res) => res.json())
-      .then((data) => {
-        data.results.forEach((component) => {
-          handleData(component);
-          arrayAllMovies.push(component);
-          localStorage.setItem("save", JSON.stringify(arrayAllMovies));
-        });
-      });
+}
+// Tạo đối tượng JSON rỗng
+function getAllIdToCheck(data){
+  for (let i = 0; i < data.length; i++) {
+    getId.push(data[i].id);
   }
 }
 
-function getDataTemporary() {
-  const checkDataTemporary = localStorage.getItem("save");
-  if (checkDataTemporary) {
-    loader.style.display = "none";
-    return JSON.parse(checkDataTemporary);
-  } else if (!checkDataTemporary) {
-    loader.style.display = "block";
-    return null;
-  }
-}
-let saveArrayTemporary = getDataTemporary();
-
-let saveId = [];
-
-for (let i = 0; i < saveArrayTemporary.length; i++) {
-  saveId.push(saveArrayTemporary[i].id);
-}
-saveDataTrending.forEach((item, index) => {
-  if (!saveId.includes(item.id)) {
-    saveArrayTemporary.push(item);
-  }
-});
-saveDataTopRate.forEach((item, index) => {
-  if (!saveId.includes(item.id)) {
-    saveArrayTemporary.push(item);
-  }
-});
-
-handleData(saveArrayTemporary);
-localStorage.setItem("saveMovie", JSON.stringify(saveArrayTemporary));
-
-var saveArray = JSON.parse(localStorage.getItem("saveMovie"));
-
-const resultsSearch = document.querySelector(".results-search");
-const containResults = document.querySelectorAll(".contain-results");
-const close = document.querySelector(".close i");
-const inputSearch = document.querySelector("#input-search");
-
-function searchMovie() {
-  let valueInput = inputSearch.value.toLowerCase().trim();
-  let MoviesSearch = saveArray.filter((comp) => {
-    return comp.title.toLowerCase().includes(valueInput);
-  });
-
-  if (valueInput.length != 0) {
-    close.style.opacity = "1";
-  }
-  const RenderMoviesSearch = () => {
-    if (valueInput.length == 0) {
-      close.style.opacity = "0";
-      return <div></div>;
-    } else if (MoviesSearch.length == 0) {
-      return (
-        <div className="contain-movies" id="no-result">
-          No movies for this result!
-        </div>
-      );
-    } else {
-      return (
-        <div className="contain-movies">
-          {MoviesSearch.map((item) => (
-            <div className="contain-results" id={item.id} key={item.id}>
-              <img src={item.poster_path} />
-              <ul>
-                <li>{item.title}</li>
-                <p>{item.release_date}</p>
-              </ul>
-            </div>
-          ))}
-        </div>
-      );
+function checkAndPushMovie(data){
+  data.forEach(item=> {
+    if (!getId.includes(item.id)) {
+      getAllDataPopular.push(item);
     }
-  };
-
-  ReactDOM.render(<RenderMoviesSearch />, resultsSearch);
-  containResults.forEach((containResult) => {
-    containResult.addEventListener("click", () => {
-      localStorage.setItem("idCard", JSON.stringify(containResult.id));
-      window.location.href = "./play-page.html";
-    });
   });
 }
+
+// Gọi các API và gộp kết quả vào đối tượng JSON
+Promise.all([
+  fetch('https://api.themoviedb.org/3/discover/movie?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate'),
+  fetch('https://api.themoviedb.org/3/discover/movie?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=2&with_watch_monetization_types=flatrate'),
+  fetch('https://api.themoviedb.org/3/discover/movie?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=3&with_watch_monetization_types=flatrate'),
+  fetch('https://api.themoviedb.org/3/trending/all/day?api_key=21a74c685cbdafbea65d58ebd993168f'),
+  fetch('https://api.themoviedb.org/3/movie/top_rated?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&page=1')
+
+])
+  .then(responses => {
+    // Chuyển đổi phản hồi của các API sang đối tượng JSON
+    return Promise.all(responses.map(response => response.json()));
+  })
+  .then(data => {
+    loader.style.display = "none";
+    // Gộp kết quả từ các đối tượng JSON vào đối tượng JSON chung
+  for(let i =0;i<3; i++){
+    gatherAllPage(data[i].results)
+  }
+    getAllDataPopular ? getAllIdToCheck(getAllDataPopular) : null
+
+    data[3].results ? checkAndPushMovie(data[3].results) : getAllDataPopular
+    data[4].results ? checkAndPushMovie(data[4].results) : getAllDataPopular
+    handleData(getAllDataPopular)
+    localStorage.setItem('allDataMovies', JSON.stringify(getAllDataPopular))
+  })
+  .catch(error => {
+    // Xử lý lỗi ở đây
+    loader.style.display = "block";
+
+  });
+
+  const resultsSearch = document.querySelector(".results-search");
+  const close = document.querySelector(".close i");
+  const inputSearch = document.querySelector("#input-search");
+
+  let checkGetData = false
+let allDataMovies;
+  function searchMovie() {
+    if(!checkGetData){
+      checkGetData = true
+      allDataMovies = JSON.parse(localStorage.getItem('allDataMovies'))
+      
+     }
+    let valueInput = inputSearch.value.toLowerCase().trim();
+    let MoviesSearch = allDataMovies.filter((item) => {
+      return item.title.toLowerCase().includes(valueInput);
+    });
+   
+    if (valueInput.length != 0) {
+      close.style.opacity = "1";
+    }
+  
+    const RenderMoviesSearch = () => {
+      if (valueInput.length == 0) {
+        close.style.opacity = "0";
+        return <div></div>;
+      } else if (MoviesSearch.length == 0) {
+        return (
+          <div className="contain-movies" id="no-result">
+            No movies for this result!
+          </div>
+        );
+      } else {
+        return (
+          <div className="contain-movies">
+            {MoviesSearch.map((item) => (
+              <div className="contain-results" id={item.id} key={item.id}>
+                <img src={item.poster_path} />
+                <ul>
+                  <li>{item.title}</li>
+                  <p>{item.release_date}</p>
+                </ul>
+              </div>
+            ))}
+          </div>
+        );
+      }
+    };
+  
+    ReactDOM.render(<RenderMoviesSearch />, resultsSearch);
+    const containResults = document.querySelectorAll(".contain-results");
+    containResults.forEach((containResult) => {
+      containResult.addEventListener("click", () => {
+        localStorage.setItem("idCard", JSON.stringify(containResult.id));
+        window.location.href = "./play-page.html";
+      });
+    });
+  }
+
+
+
 close.addEventListener("click", () => {
   inputSearch.value = "";
   searchMovie();
