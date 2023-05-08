@@ -1,7 +1,7 @@
 
 let idCard = JSON.parse(localStorage.getItem("idCard"));
 const containPlayPage = document.querySelector(".play-page");
-var allDataMovies = JSON.parse(localStorage.getItem("allDataMovies"));
+let allDataMovies = JSON.parse(localStorage.getItem("allDataMovies"));
 const cardMovie = document.querySelector("#playpage");
 let skeletonArrayIndex = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
 let currentImgSearch = "";
@@ -13,9 +13,9 @@ let currentVoteSearch = "";
 let dataVideos = "";
 let keyVideo = "";
 let dataSimilar = "";
-function checkIdCard(idCard) {
-  allDataMovies.forEach((item) => {
-    if (idCard == item.id) {
+function checkIdCard(data,allData) {
+  allData.forEach((item) => {
+    if (data == item.id) {
       {
         currentImgSearch = item.poster_path;
         currentTitleSearch = item.title;
@@ -37,7 +37,7 @@ async function getKeyVideo(idCard) {
       dataVideos.results[0].key =
         "https://www.youtube.com/embed/" + dataVideos.results[0].key;
       keyVideo = dataVideos.results[0].key;
-      checkIdCard(idCard);
+      checkIdCard(idCard,allDataMovies);
       renderMovieChoose(keyVideo)
     })
     .catch(error=>{
@@ -151,8 +151,8 @@ async function handleSimilar() {
       getMoviesSimilar.forEach((movie, index) => {
         movie.addEventListener("click", () => {
           idCard = movie.id;
-          checkIdCard();
-          handleVideo(idCard);
+          checkIdCard(idCard,dataSimilar.results);
+          getKeyVideo(idCard);
         });
       });
     })
@@ -196,7 +196,7 @@ function renderError(){
           <div>
             <div className="card-loader">
               <div className="content">
-                <img src ="	https://e1.pxfuel.com/desktop-wallpaper/958/231/desktop-wallpaper-180-vegeta-my-favourite-ideas-in-2021-vegeta-hakaishin.jpg"/>
+                <img src ="	https://www.solidbackgrounds.com/images/2480x3508/2480x3508-dark-slate-gray-solid-color-background.jpg"/>
               </div>
             </div>
           </div>
