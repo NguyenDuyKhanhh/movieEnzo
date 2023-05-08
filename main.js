@@ -12,65 +12,79 @@ const favourites = document.querySelector("#favourite");
 const nowPage = document.querySelector("#popular-series h1");
 const slider = document.querySelector(".slider");
 const dots = document.querySelectorAll(".dot");
-var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-link.type = 'image/x-icon';
-link.rel = 'shortcut icon';
-link.href = 'https://steamuserimages-a.akamaihd.net/ugc/911294107789597240/84A57C1A75DC12BA21FA81DD0C4255490EEC05F8/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false';
-document.getElementsByTagName('head')[0].appendChild(link);
-
+var link =
+  document.querySelector("link[rel*='icon']") || document.createElement("link");
+link.type = "image/x-icon";
+link.rel = "shortcut icon";
+link.href =
+  "https://steamuserimages-a.akamaihd.net/ugc/911294107789597240/84A57C1A75DC12BA21FA81DD0C4255490EEC05F8/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false";
+document.getElementsByTagName("head")[0].appendChild(link);
+let skeletonArrayIndex = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
 let scrollInterval;
 let currentPage = 1;
 function handleData(data) {
-  data.forEach(item=>{
-     if (item.title == undefined) {
+  data.forEach((item) => {
+    if (item.title == undefined) {
       item.title = item.name;
     }
     if (item.release_date == undefined) {
       item.release_date = item.first_air_date;
     }
-     item.poster_path =
-      "https://image.tmdb.org/t/p/w500" + item.poster_path;
-    item.backdrop_path =
-      "https://image.tmdb.org/t/p/w500" + item.backdrop_path;
-  })
+    item.poster_path = "https://image.tmdb.org/t/p/w500" + item.poster_path;
+    item.backdrop_path = "https://image.tmdb.org/t/p/w500" + item.backdrop_path;
+  });
 }
 async function movieTrending() {
+  renderError()
   let apiTrending = `https://api.themoviedb.org/3/trending/all/day?api_key=21a74c685cbdafbea65d58ebd993168f`;
-  await fetch(apiTrending).then((res) => res.json())
-  .then(data=>{
-   renderMovie(data.results)
-   saveID()
-  }) 
-
+  await fetch(apiTrending)
+    .then((res) => res.json())
+    .then((data) => {
+      renderMovie(data.results);
+      saveID(".card");
+    })
+    .catch(error=>
+      renderError()
+      )
 }
-containMovie.id == "trending" ? movieTrending() : null
+containMovie.id == "trending" ? movieTrending() : null;
 
 async function movieTopRate() {
+  renderError()
   let apiTopRate = `https://api.themoviedb.org/3/movie/top_rated?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&page=1`;
-  await fetch(apiTopRate).then((res) => res.json())
-  .then(data=>{
-     renderMovie(data.results)
-     saveID()
-  })
+  await fetch(apiTopRate)
+    .then((res) => res.json())
+    .then((data) => {
+      renderMovie(data.results);
+      saveID(".card");
+    })
+    .catch(error=>
+      renderError()
+      )
+    
 }
-containMovie.id == "movie" ? movieTopRate() : null
+containMovie.id == "movie" ? movieTopRate() : null;
 
-async function movieHome(page){
-  await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`)
-  .then(res => res.json())
-  .then(data=>{
-     renderMovie(data.results)
-     saveID()
-  })
+async function movieHome(page) {
+  renderError()
+  await fetch(
+    `https://api.themoviedb.org/3/discover/movie?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      renderMovie(data.results);
+      saveID(".card");
+    })
+    .catch(error=>
+      renderError()
+      )
 }
-containMovie.id == "home" ? movieHome(currentPage ) : null
-
-
+containMovie.id == "home" ? movieHome(currentPage) : null;
 
 function nextPage() {
   if (currentPage != 3) {
     currentPage++;
-    movieHome(currentPage)
+    movieHome(currentPage);
     nowPage.innerText = "Page " + currentPage;
     next.style.display = "block";
   }
@@ -85,7 +99,7 @@ function nextPage() {
 function prevPage() {
   if (currentPage != 1) {
     currentPage--;
-    movieHome(currentPage)
+    movieHome(currentPage);
     nowPage.innerText = "Page " + currentPage;
     prev.style.display = "block";
   }
@@ -96,7 +110,7 @@ function prevPage() {
     next.style.display = "block ";
   }
 }
-function renderMovie(data) {
+ function renderMovie(data) {
   function Render(props) {
     return (
       <div className="col l-3 m-4 c-4" key={props.id}>
@@ -114,8 +128,8 @@ function renderMovie(data) {
       </div>
     );
   }
-  function App({child}) {
-    handleData(child)
+  function App({ child }) {
+    handleData(child);
     return (
       <div className="row">
         {child.map((cardMovie) => (
@@ -130,14 +144,46 @@ function renderMovie(data) {
       </div>
     );
   }
-    
-    ReactDOM.render(<App child={data} />, containMovie);
+
+  ReactDOM.render(<App child={data} />, containMovie);
+}
+function renderError(){
+  function Loader(props) {
+    return (
+      <div className="col l-3 m-4 c-4" key={props.index}>
+        <div className=" card-recss" id={props.index}>
+          <div>
+            <div className="card-loader">
+              <div className="content">
+                <img src ="	https://www.solidbackgrounds.com/images/2480x3508/2480x3508-dark-slate-gray-solid-color-background.jpg"/>
+              </div>
+            </div>
+          </div>
+            <h1 className="loader-text">{props.title}</h1>
+            <small className="loader-text">{props.public}</small>
+        </div>
+      </div>
+    );
+  }
+  function RenderLoader() {
+    return (
+      <div className="row">
+        {skeletonArrayIndex.map((item, index) => (
+          <Loader
+            key={item}
+            id={item}
+            title="Loading title..."
+            public= "Loading release date..."
+          />
+        ))}
+      </div>
+    );
+  }
+  ReactDOM.render(<RenderLoader />, containMovie);
 
 }
-
-
-function saveID(){
-  const getCards = document.querySelectorAll(".card");
+function saveID(selector) {
+  const getCards = document.querySelectorAll(selector);
   getCards.forEach((getCard) => {
     getCard.addEventListener("click", () => {
       localStorage.setItem("idCard", JSON.stringify(getCard.id));
@@ -145,7 +191,6 @@ function saveID(){
     });
   });
 }
-
 
 function handleSlider() {
   dots.forEach((dot, index) => {
@@ -182,20 +227,18 @@ handleSlider();
 let getAllDataPopular = [];
 let getId = [];
 
-function gatherAllPage (data){
-  data.forEach(item=>
-    getAllDataPopular.push(item)
-    )
+function gatherAllPage(data) {
+  data.forEach((item) => getAllDataPopular.push(item));
 }
 // Tạo đối tượng JSON rỗng
-function getAllIdToCheck(data){
+function getAllIdToCheck(data) {
   for (let i = 0; i < data.length; i++) {
     getId.push(data[i].id);
   }
 }
 
-function checkAndPushMovie(data){
-  data.forEach(item=> {
+function checkAndPushMovie(data) {
+  data.forEach((item) => {
     if (!getId.includes(item.id)) {
       getAllDataPopular.push(item);
     }
@@ -204,95 +247,93 @@ function checkAndPushMovie(data){
 
 // Gọi các API và gộp kết quả vào đối tượng JSON
 Promise.all([
-  fetch('https://api.themoviedb.org/3/discover/movie?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate'),
-  fetch('https://api.themoviedb.org/3/discover/movie?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=2&with_watch_monetization_types=flatrate'),
-  fetch('https://api.themoviedb.org/3/discover/movie?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=3&with_watch_monetization_types=flatrate'),
-  fetch('https://api.themoviedb.org/3/trending/all/day?api_key=21a74c685cbdafbea65d58ebd993168f'),
-  fetch('https://api.themoviedb.org/3/movie/top_rated?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&page=1')
-
+  fetch(
+    "https://api.themoviedb.org/3/discover/movie?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
+  ),
+  fetch(
+    "https://api.themoviedb.org/3/discover/movie?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=2&with_watch_monetization_types=flatrate"
+  ),
+  fetch(
+    "https://api.themoviedb.org/3/discover/movie?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=3&with_watch_monetization_types=flatrate"
+  ),
+  fetch(
+    "https://api.themoviedb.org/3/trending/all/day?api_key=21a74c685cbdafbea65d58ebd993168f"
+  ),
+  fetch(
+    "https://api.themoviedb.org/3/movie/top_rated?api_key=21a74c685cbdafbea65d58ebd993168f&language=en-US&page=1"
+  ),
 ])
-  .then(responses => {
+  .then((responses) => {
     // Chuyển đổi phản hồi của các API sang đối tượng JSON
-    return Promise.all(responses.map(response => response.json()));
+    return Promise.all(responses.map((response) => response.json()));
   })
-  .then(data => {
+  .then((data) => {
     loader.style.display = "none";
     // Gộp kết quả từ các đối tượng JSON vào đối tượng JSON chung
-  for(let i =0;i<3; i++){
-    gatherAllPage(data[i].results)
-  }
-    getAllDataPopular ? getAllIdToCheck(getAllDataPopular) : null
+    for (let i = 0; i < 3; i++) {
+      gatherAllPage(data[i].results);
+    }
+    getAllDataPopular ? getAllIdToCheck(getAllDataPopular) : null;
 
-    data[3].results ? checkAndPushMovie(data[3].results) : getAllDataPopular
-    data[4].results ? checkAndPushMovie(data[4].results) : getAllDataPopular
-    handleData(getAllDataPopular)
-    localStorage.setItem('allDataMovies', JSON.stringify(getAllDataPopular))
+    data[3].results ? checkAndPushMovie(data[3].results) : getAllDataPopular;
+    data[4].results ? checkAndPushMovie(data[4].results) : getAllDataPopular;
+    handleData(getAllDataPopular);
+    localStorage.setItem("allDataMovies", JSON.stringify(getAllDataPopular));
   })
-  .catch(error => {
-    // Xử lý lỗi ở đây
+  .catch((error) => {
     loader.style.display = "block";
-
   });
 
-  const resultsSearch = document.querySelector(".results-search");
-  const close = document.querySelector(".close i");
-  const inputSearch = document.querySelector("#input-search");
+const resultsSearch = document.querySelector(".results-search");
+const close = document.querySelector(".close i");
+const inputSearch = document.querySelector("#input-search");
 
-  let checkGetData = false
+let checkGetData = false;
 let allDataMovies;
-  function searchMovie() {
-    if(!checkGetData){
-      checkGetData = true
-      allDataMovies = JSON.parse(localStorage.getItem('allDataMovies'))
-      
-     }
-    let valueInput = inputSearch.value.toLowerCase().trim();
-    let MoviesSearch = allDataMovies.filter((item) => {
-      return item.title.toLowerCase().includes(valueInput);
-    });
-   
-    if (valueInput.length != 0) {
-      close.style.opacity = "1";
-    }
-  
-    const RenderMoviesSearch = () => {
-      if (valueInput.length == 0) {
-        close.style.opacity = "0";
-        return <div></div>;
-      } else if (MoviesSearch.length == 0) {
-        return (
-          <div className="contain-movies" id="no-result">
-            No movies for this result!
-          </div>
-        );
-      } else {
-        return (
-          <div className="contain-movies">
-            {MoviesSearch.map((item) => (
-              <div className="contain-results" id={item.id} key={item.id}>
-                <img src={item.poster_path} />
-                <ul>
-                  <li>{item.title}</li>
-                  <p>{item.release_date}</p>
-                </ul>
-              </div>
-            ))}
-          </div>
-        );
-      }
-    };
-  
-    ReactDOM.render(<RenderMoviesSearch />, resultsSearch);
-    const containResults = document.querySelectorAll(".contain-results");
-    containResults.forEach((containResult) => {
-      containResult.addEventListener("click", () => {
-        localStorage.setItem("idCard", JSON.stringify(containResult.id));
-        window.location.href = "./play-page.html";
-      });
-    });
+function searchMovie() {
+  if (!checkGetData) {
+    checkGetData = true;
+    allDataMovies = JSON.parse(localStorage.getItem("allDataMovies"));
+  }
+  let valueInput = inputSearch.value.toLowerCase().trim();
+  let MoviesSearch = allDataMovies.filter((item) => {
+    return item.title.toLowerCase().includes(valueInput);
+  });
+
+  if (valueInput.length != 0) {
+    close.style.opacity = "1";
   }
 
+  const RenderMoviesSearch = () => {
+    if (valueInput.length == 0) {
+      close.style.opacity = "0";
+      return <div></div>;
+    } else if (MoviesSearch.length == 0) {
+      return (
+        <div className="contain-movies" id="no-result">
+          No movies for this result!
+        </div>
+      );
+    } else {
+      return (
+        <div className="contain-movies">
+          {MoviesSearch.map((item) => (
+            <div className="contain-results" id={item.id} key={item.id}>
+              <img src={item.poster_path} />
+              <ul>
+                <li>{item.title}</li>
+                <p>{item.release_date}</p>
+              </ul>
+            </div>
+          ))}
+        </div>
+      );
+    }
+  };
 
+  ReactDOM.render(<RenderMoviesSearch />, resultsSearch);
+  saveID(".contain-results");
+}
 
 close.addEventListener("click", () => {
   inputSearch.value = "";
