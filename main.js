@@ -6,7 +6,6 @@ const nextSlider = document.querySelector(".bx-chevron-right");
 const prevSlider = document.querySelector(".bx-chevron-left");
 const next = document.querySelector(".exchange-page a .next");
 const prev = document.querySelector(".exchange-page a .prev");
-
 const loader = document.querySelector(".loader");
 const favourites = document.querySelector("#favourite");
 const nowPage = document.querySelector("#popular-series h1");
@@ -22,9 +21,7 @@ document.getElementsByTagName("head")[0].appendChild(link);
 let skeletonArrayIndex = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
 let scrollInterval;
 let currentPage = 1;
-window.onload = ()=>{
-  renderError()
-}
+
 function handleData(data) {
   data.forEach((item) => {
     if (item.title == undefined) {

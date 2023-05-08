@@ -146,6 +146,7 @@ async function handleSimilar() {
   dataSimilar = await fetch(apiSimilarMovies)
     .then((res) => res.json())
     .then((dataSimilar) => {
+
      renderSimilarMovies(dataSimilar.results)
      const getMoviesSimilar = document.querySelectorAll(".similar");
       getMoviesSimilar.forEach((movie, index) => {
@@ -166,12 +167,13 @@ function renderSimilarMovies(data) {
     return (
       <div className="row">
         {data.map((item, index) => (
+          
           <div className="col l-3 m-4 c-4" key={item.id}>
             <div className="card similar" id={item.id}>
               <div>
                 <a href="#">
                   {" "}
-                  <img src={item.poster_path} />{" "}
+                 {item.poster_path == "https://image.tmdb.org/t/p/w500null" ? <img className="alt-img" src ="https://image.tmdb.org/t/p/w500/3kBangW2OBBNkqYyp48blW9cwE5.jpg" /> : <img src={item.poster_path}/>}
                 </a>
                 <img
                   className="play"
