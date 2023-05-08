@@ -30,7 +30,7 @@ function checkIdCard(idCard) {
 
 async function getKeyVideo(idCard) {
   renderMovieChooseError()
-  let apiMovie = `https://pi.themoviedb.org/3/movie/${idCard}/videos?api_key=21a74c685cbdafbea65d58ebd993168f`;
+  let apiMovie = `https://api.themoviedb.org/3/movie/${idCard}/videos?api_key=21a74c685cbdafbea65d58ebd993168f`;
   dataVideos = await fetch(apiMovie)
     .then((res) => res.json())
     .then((dataVideos) => {
