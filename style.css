@@ -12,6 +12,8 @@ li {
 }
 
 body {
+  --iframe-color: hue-rotate(290deg);
+  --loader-background:hue-rotate(1119deg),contrast(100%);
   --origin-color: white;
   --background-color: rgb(8, 27, 39);
   --box-color: rgb(46, 46, 58);
@@ -21,10 +23,12 @@ body {
   height: 100%;
   background-color: var(--background-color);
   position: relative;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
 body.dark {
+  --iframe-color: hue-rotate(170deg);
+  --loader-background:hue-rotate(99deg);
   --origin-color: rgb(0, 0, 0);
   --background-color: rgb(250, 250, 250);
   --box-color: #e4e5f1;
@@ -57,9 +61,9 @@ body::-webkit-scrollbar-track {
   background-color: var(--background-color);
   width: 100%;
   height: 100px;
-  z-index: 100;
+  z-index: 1000;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
 .header {
@@ -70,21 +74,21 @@ body::-webkit-scrollbar-track {
   top: 0;
   right: 0;
   left: 0;
-  z-index: 100;
+  z-index: 1000;
   padding: 10px 0;
   margin: 0 auto;
-  transition: 0.3s;
+  transition: 0.2s;
   /* From uiverse.io by @satyamchaudharydev */
   /* this button is inspired by -- whatsapp input */
   /* == type to see fully interactive and click the close buttom to remove the text  == */
 }
 .header img {
   width: 220px;
-  transition: 0.3s;
+  transition: 0.2s;
   overflow: hidden;
   filter: contrast(200%);
   margin-top: 10px;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 .header img.contrast {
   filter: blur(20deg);
@@ -123,14 +127,14 @@ body::-webkit-scrollbar-track {
 .header .form label i {
   /* display: block; */
   color: var(--origin-color);
-  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   position: absolute;
   height: 15px;
 }
 .header .form label .icon {
   position: absolute;
   left: var(--padding);
-  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -240,7 +244,7 @@ body::-webkit-scrollbar-track {
 
 .loader .bar8 {
   transform: rotate(210deg) translate(0, -130%);
-  animation-delay: -0.3s;
+  animation-delay: -0.2s;
 }
 
 .loader .bar9 {
@@ -250,7 +254,7 @@ body::-webkit-scrollbar-track {
 
 .loader .bar10 {
   transform: rotate(270deg) translate(0, -130%);
-  animation-delay: -0.3s;
+  animation-delay: -0.2s;
 }
 
 .loader .bar11 {
@@ -313,7 +317,7 @@ body::-webkit-scrollbar-track {
   padding: 20px 10px;
   display: block;
   border-radius: 10px;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
 .series.grid {
@@ -341,7 +345,7 @@ body::-webkit-scrollbar-track {
 }
 .navbar ul li {
   margin-left: 10px;
-  transition: 0.3s;
+  transition: 0.2s;
   color: var(--origin-color);
   display: flex;
   flex-direction: column;
@@ -383,7 +387,7 @@ body::-webkit-scrollbar-track {
   right: 0;
   bottom: 0;
   background-color: var(--background);
-  transition: 0.3s;
+  transition: 0.2s;
   border-radius: 30px;
 }
 .navbar ul li .switch .slider:before {
@@ -396,7 +400,7 @@ body::-webkit-scrollbar-track {
   bottom: 15%;
   box-shadow: inset 8px -4px 0px 0px rgb(234, 166, 51);
   background: var(--background);
-  transition: 0.3s;
+  transition: 0.2s;
 }
 .navbar ul li .switch input:checked + .slider {
   background-color: #d2d3db;
@@ -419,7 +423,7 @@ body::-webkit-scrollbar-track {
 }
 .movie .card img {
   width: 100%;
-  transition: 0.3s;
+  transition: 0.2s;
   cursor: pointer;
 }
 .movie .card img:hover {
@@ -436,7 +440,7 @@ body::-webkit-scrollbar-track {
 .movie .card .play {
   position: absolute;
   width: 105px;
-  transition: 0.3s;
+  transition: 0.2s;
   opacity: 0;
   border-radius: 10px;
 }
@@ -465,6 +469,7 @@ body::-webkit-scrollbar-track {
   padding: 5px 7px;
   border: none;
   border-radius: 2px;
+  color: var(--box-color);
   background-color: var(--text-color);
   cursor: pointer;
 }
@@ -479,6 +484,7 @@ body::-webkit-scrollbar-track {
   margin-top: 120px;
   color: var(--origin-color);
   line-height: 40px;
+  margin-bottom: 20px;
 }
 .play-page .reference img {
   width: 100%;
@@ -521,7 +527,7 @@ iframe::before {
   display: flex;
   flex-direction: column;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 .contain-movies .contain-results {
   display: flex;
@@ -588,8 +594,7 @@ iframe::before {
   align-items: center;
   justify-content: center;
   margin-top: 20px;
-  filter: hue-rotate(60deg);
-  filter: contrast(140%);
+  filter: var(--loader-background);
 }
 .card-recss img {
   width: 100%;
@@ -634,6 +639,38 @@ iframe::before {
 .similar .alt-img {
   filter: hue-rotate(20deg);
   filter: brightness(1%);
+}
+
+#color-iframe {
+  filter: var(--iframe-color);
+}
+
+.slider-performer .wrapper {
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scrollbar-color: red;
+  scrollbar-width: 10px;
+}
+.slider-performer .wrapper .list-moviecast {
+  display: flex;
+  flex-wrap: nowrap;
+  position: relative;
+}
+.slider-performer .wrapper .list-moviecast .item {
+  margin: 20px 0;
+  flex: 0 0 100%;
+  max-height: 480px;
+}
+.slider-performer .wrapper .list-moviecast .item img {
+  width: 100%;
+}
+.slider-performer .wrapper .list-moviecast .item h1 {
+  margin-top: 10px;
+  text-align: center;
+  color: var(--text-color);
+}
+.slider-performer .wrapper::-webkit-scrollbar {
+  width: 0px;
 }
 
 @media (max-width: 739px) {
@@ -720,7 +757,6 @@ iframe::before {
   }
   .reference img {
     height: 100%;
-    margin-bottom: 20px;
   }
   .play-page .reference {
     margin-top: 70px;
@@ -740,7 +776,7 @@ iframe::before {
   padding-right: 20px;
 }
 
-@media (max-width: 370px) {
+@media (max-width: 360px) {
   .slider-container .navigation-dots .dot {
     width: 7px;
     height: 7px;
@@ -748,11 +784,14 @@ iframe::before {
   .slider-container .navigation-dots .dot.active {
     background-color: var(--text-color);
   }
-  iframe {
+  .iframe {
     width: 100%;
     height: 200px;
     margin-bottom: 20px;
     border-radius: 0;
+  }
+  #color-iframe {
+    filter: var(--iframe-color);
   }
   .slider img {
     margin-top: 0px;
@@ -769,9 +808,16 @@ iframe::before {
   }
   .contain-movies {
     width: 100%;
+    top: 12%;
+  }
+  .slider-performer .wrapper .list-moviecast {
+    max-height: 240px;
+  }
+  .slider-performer .wrapper .list-moviecast h1 {
+    font-size: 14px;
   }
 }
-@media (min-width: 370px) and (max-width: 600px) {
+@media (min-width: 360px) and (max-width: 600px) {
   .navigation-dots .dot {
     width: 5px;
     height: 5px;
@@ -783,7 +829,7 @@ iframe::before {
     width: 100%;
     top: 8%;
   }
-  iframe {
+  .iframe {
     width: 100%;
     height: 270px;
     margin-bottom: 20px;
@@ -801,9 +847,12 @@ iframe::before {
   .header .form {
     margin-top: 2px;
   }
+  .slider-performer .wrapper .list-moviecast h1 {
+    font-size: 17px;
+  }
 }
 @media (min-width: 600px) and (max-width: 739px) {
-  iframe {
+  .iframe {
     width: 100%;
     height: 400px;
     margin-bottom: 20px;
@@ -832,7 +881,7 @@ iframe::before {
   .form {
     margin-top: 0;
   }
-  iframe {
+  .iframe {
     width: 100%;
     height: 400px;
     margin-bottom: 20px;

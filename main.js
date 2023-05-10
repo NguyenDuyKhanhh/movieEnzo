@@ -342,10 +342,25 @@ close.addEventListener("click", () => {
 
 const inputToggle = document.querySelector("#toggle-mode");
 const logo = document.querySelector(".header img");
-function lightMode() {
-  inputToggle.addEventListener("change", () => {
-    document.body.classList.toggle("dark");
-    logo.classList.toggle("contrast");
-  });
-}
-lightMode();
+function applyDarkMode(isDarkMode) {
+  if(isDarkMode){
+    document.body.classList.add('dark')
+    logo.classList.add("contrast")
+  }else{
+    document.body.classList.remove('dark');
+    logo.classList.remove("contrast")
+  }
+ }
+inputToggle.addEventListener('change', function() {
+  applyDarkMode(this.checked);
+
+  localStorage.setItem('darkMode', this.checked);
+});
+var isDarkModeEnabled = localStorage.getItem('darkMode') === 'true';
+inputToggle.checked =  isDarkModeEnabled
+applyDarkMode(isDarkModeEnabled);
+
+
+
+// Hàm áp dụng trạng thái Dark Mode vào giao diện
+
