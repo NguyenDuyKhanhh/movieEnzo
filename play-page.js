@@ -139,10 +139,11 @@ function renderMovieChooseError() {
 }
 containMovie.id == "playpage" ? getKeyVideo(idCard) : null;
 async function getListPerformer(idCard){
+  renderLoaderListPerformer()
   await fetch(`https://api.themoviedb.org/3/movie/${idCard}/credits?api_key=21a74c685cbdafbea65d58ebd993168f`)
   .then(res=> res.json())
   .then(data=>{
-    console.log(data.cast.profile_path)
+    console.log(data.cast)
     data.cast.forEach(item=>{
       if(item.profile_path == null){
         item.profile_path = "https://scontent.xx.fbcdn.net/v/t1.15752-9/345867784_773653300982442_1166101827656040665_n.png?stp=dst-png_s240x240&_nc_cat=111&ccb=1-7&_nc_sid=aee45a&_nc_ohc=QgO6diLvwSAAX8Ox4Ui&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdQGYgn7fQeCOOspRZLCXO3SH2VlqTE0gZE61qFkMOi_ng&oe=64833E61"
@@ -152,6 +153,9 @@ async function getListPerformer(idCard){
       
     })
     renderListPerfomer(data.cast)
+  })
+  .catch(error=>{
+    renderLoaderListPerformer()
   })
 }
 function renderListPerfomer(data){
@@ -172,7 +176,29 @@ function Render(){
 }
   ReactDOM.render(<Render />, containPerformer);
 }
-containMovie == "playpage" ? getListPerformer(idCard) : null
+function renderLoaderListPerformer(){
+  function Render(){
+    return(
+      <div className="row list-moviecast">
+               {
+                skeletonArrayIndex.map(item=>(
+                  <div key ={item} className="item col l-3 m-4 c-4">
+                    <div className="content">
+                  <img src="https://www.solidbackgrounds.com/images/2480x3508/2480x3508-dark-slate-gray-solid-color-background.jpg" alt=""/>
+                    </div>
+
+                  <h1>Loading...</h1>
+              </div>
+                ))
+               }
+               
+      </div>
+    )
+  }
+  ReactDOM.render(<Render />, containPerformer);
+
+}
+containMovie.id == "playpage" ? getListPerformer(idCard) : null
 function handleData(data) {
   data.forEach((item) => {
     if (item.title == undefined) {

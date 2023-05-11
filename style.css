@@ -911,6 +911,9 @@ iframe::before {
   .reference {
     flex-wrap: wrap;
   }
+  .slider-performer .wrapper .list-moviecast h1 {
+    font-size: 20px;
+  }
 }
 @media (min-width: 1024px) and (max-width: 1425px) {
   .body {
