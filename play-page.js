@@ -36,7 +36,7 @@ function addFavoriteMovie(id,object) {
   let favoriteMovies = JSON.parse(localStorage.getItem('favoriteMovies')) || [];
   
   // Kiểm tra xem phim đã có trong danh sách yêu thích hay chưa
-  if (!favoriteMovies.find(item => item === id)) {
+  if (!favoriteMovies.find(item => item.id === id)) {
     favoriteMovies.push(object);
     
     // Lưu danh sách phim vào localStorage
@@ -47,9 +47,6 @@ function addFavoriteMovie(id,object) {
     console.log('Phim đã tồn tại trong danh sách yêu thích.');
   }
 }
-
-
-
 async function getKeyVideo(idCard) {
   renderMovieChooseError();
   let apiMovie = `https://api.themoviedb.org/3/movie/${idCard}/videos?api_key=21a74c685cbdafbea65d58ebd993168f`;
