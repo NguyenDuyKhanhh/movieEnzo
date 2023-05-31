@@ -5,9 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Enzo</title>
-    <link rel="icon" href="data:,">
-
     <link rel="stylesheet" href="./grid.css">
+
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="./style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +16,7 @@
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 </head>
-<body> 
+<body>
     <div class="overlay"><div class="results-search"></div>
     </div>
     <div class="header grid wide">
@@ -49,7 +48,9 @@
             </label>
         </form>                     
 </div>
-        <div style="display:none;" class="slider-container grid wide">
+   
+   
+        <div class="slider-container grid wide">
             
             <div class="slider">
                 <img src="https://static1.squarespace.com/static/5efce5920d28887981c5bd9b/5efdf3ce4c0f85227cad0448/63b3c7f15f6d412cfa2740cc/1672727694792/M3GAN+banner+2.jpg?format=1500w"
@@ -69,6 +70,7 @@
                 <span class="dot"></span>
               </div>
         </div>
+    <div class="series grid wide">Favourite movies</div>
     <div class="navbar">
         <ul>
             <li>
@@ -92,35 +94,32 @@
             <li>
                 <a id ="favourite" href="./favourites.html">
                     <i class='bx bx-heart' ></i>
-                    Favourites
+                    Favourite
                 </a>
             </li>
             <li>
-
                 <label class="switch" for="toggle-mode">
-
                     <input type="checkbox" id="toggle-mode">
                     <span class="slider"></span>
                 </label>
-
             </li>
         </ul>
     </div>
-    <div class="play-page grid wide"></div>
-    <div class="slider-performer">
-        <div class="series grid wide">Movie Cast</div>
-        <div class="wrapper grid wide"></div>
-    </div>
-    <div class="series grid wide">Similar Movies</div>
-    <div id="playpage" class="movie grid wide"></div>
+    
+    <div id="favourites" class="movie movie-favourite grid wide"></div>
     <div style="display: none;" class="next-page">
         <a href ='#'><button class="prev">Prev page</button></a>
         <a href ='#'><button class="next">Next page</button></a>
     </div>
-    <script type="text/babel" src="./main.js"></script>
-    <script type="text/babel" src="./play-page.js"></script>
-    <script type="text/babel" src="./favourite.js"></script>
 
+    <script type="text/babel" src="./main.js"></script>
+    <script type="text/babel" src="./favourite.js"></script>
+    <script type="text/babel" src="./play-page.js"></script>
+
+
+
+  
     
+  
 </body>
 </html>

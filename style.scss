@@ -500,7 +500,7 @@ $main-color: var(--text-color);
     color: var(--origin-color);
     line-height: 40px;
     margin-bottom: 20px;
-
+    position: relative;
     img {
       width: 100%;
       object-fit: cover;
@@ -508,6 +508,52 @@ $main-color: var(--text-color);
     }
     span {
       color: var(--text-color);
+    }
+    h5{
+      line-height: 50px;
+      font-size: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+     button{
+      margin-top: 10px;
+      padding: 5px ;
+      border: none;
+      background-color: var(--text-color);
+      color: var(--box-color);
+      border-radius: 5px;
+      transition: .2s;
+      cursor: pointer;
+     }
+     .add:active{
+      background-color: red;
+      color: blue;
+     }
+     .remove{
+      position: absolute;
+      display: none;
+     }
+     .remove:active{
+      background-color: gray;
+      color: black;
+     }
+      .hearts{
+        position: relative;
+        margin-right: 10px;
+        display: flex;
+        align-items: center;
+
+        i{
+          cursor: pointer;
+          font-size: 30px;
+          color: red;
+        }
+        .bxs-heart{
+          position: absolute;
+          opacity: 0;
+        }
+      }
     }
   }
 }

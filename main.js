@@ -11,13 +11,7 @@ const favourites = document.querySelector("#favourite");
 const nowPage = document.querySelector("#popular-series h1");
 const slider = document.querySelector(".slider");
 const dots = document.querySelectorAll(".dot");
-var link =
-  document.querySelector("link[rel*='icon']") || document.createElement("link");
-link.type = "image/x-icon";
-link.rel = "shortcut icon";
-link.href =
-  "https://steamuserimages-a.akamaihd.net/ugc/911294107789597240/84A57C1A75DC12BA21FA81DD0C4255490EEC05F8/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false";
-document.getElementsByTagName("head")[0].appendChild(link);
+
 let skeletonArrayIndex = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
 let scrollInterval;
 let currentPage = 1;
@@ -187,6 +181,7 @@ function saveID(selector) {
   getCards.forEach((getCard) => {
     getCard.addEventListener("click", () => {
       localStorage.setItem("idCard", JSON.stringify(getCard.id));
+      console.log(getCard)
       window.location.href = "./play-page.html";
     });
   });

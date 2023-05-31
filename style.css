@@ -485,6 +485,7 @@ body::-webkit-scrollbar-track {
   color: var(--origin-color);
   line-height: 40px;
   margin-bottom: 20px;
+  position: relative;
 }
 .play-page .reference img {
   width: 100%;
@@ -494,6 +495,51 @@ body::-webkit-scrollbar-track {
 }
 .play-page .reference span {
   color: var(--text-color);
+}
+.play-page .reference h5 {
+  line-height: 50px;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+.play-page .reference h5 button {
+  margin-top: 10px;
+  padding: 5px;
+  border: none;
+  background-color: var(--text-color);
+  color: var(--box-color);
+  border-radius: 5px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+.play-page .reference h5 .add:active {
+  background-color: red;
+  color: blue;
+}
+.play-page .reference h5 .remove {
+  position: absolute;
+  display: none;
+}
+.play-page .reference h5 .remove:active {
+  background-color: gray;
+  color: black;
+}
+.play-page .reference h5 .hearts {
+  position: relative;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
+.play-page .reference h5 .hearts i {
+  cursor: pointer;
+  font-size: 30px;
+  color: red;
+}
+.play-page .reference h5 .hearts .bxs-heart {
+  position: absolute;
+  opacity: 0;
 }
 
 iframe {

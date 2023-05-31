@@ -1,5 +1,4 @@
 let idCard = JSON.parse(localStorage.getItem("idCard"));
-
 const containPerformer = document.querySelector(".slider-performer .wrapper")
 const containPlayPage = document.querySelector(".play-page");
 let allDataMovies = JSON.parse(localStorage.getItem("allDataMovies"));
@@ -8,6 +7,7 @@ let skeletonArrayIndex = [
   0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
 ];
 let currentImgSearch = "";
+console.log(currentImgSearch)
 let currentTitleSearch = "";
 let currentLanguageSearch = "";
 let currentOverviewSearch = "";
@@ -28,8 +28,27 @@ function checkIdCard(data, allData) {
         currentVoteSearch = item.vote_average;
       }
     }
+    
   });
 }
+function addFavoriteMovie(id,object) {
+  // Kiểm tra xem localStorage đã có danh sách yêu thích hay chưa
+  let favoriteMovies = JSON.parse(localStorage.getItem('favoriteMovies')) || [];
+  
+  // Kiểm tra xem phim đã có trong danh sách yêu thích hay chưa
+  if (!favoriteMovies.find(item => item === id)) {
+    favoriteMovies.push(object);
+    
+    // Lưu danh sách phim vào localStorage
+    localStorage.setItem('favoriteMovies', JSON.stringify(favoriteMovies));
+    
+    console.log('Phim đã được thêm vào danh sách yêu thích.');
+  } else {
+    console.log('Phim đã tồn tại trong danh sách yêu thích.');
+  }
+}
+
+
 
 async function getKeyVideo(idCard) {
   renderMovieChooseError();
@@ -50,10 +69,21 @@ async function getKeyVideo(idCard) {
 
 function renderMovieChoose(url) {
   function Render() {
+    let objectFavourite = {
+      'id': idCard,
+      'name' : currentTitleSearch,
+      'image' : currentImgSearch,
+      'date' : currentReleaseSearch
+    }
+    const addMovie = () =>{
+      addFavoriteMovie(idCard,objectFavourite)
+    } 
     return (
       <div className="row">
         <div className="reference">
+         
           <div className="col l-4 m-12 c-12">
+           
             <img src={currentImgSearch} alt="" />
           </div>
           <div className="col l-8 m-12 c-12">
@@ -75,6 +105,15 @@ function renderMovieChoose(url) {
             <small>
               <span>Vote average:</span> {currentVoteSearch}
             </small>
+            <h5>
+            <button className ="add" onClick={addMovie}>Add to the favourite movie</button>
+            <button className="remove">Remove to the favourite movie</button>
+
+              <div className="hearts">
+                <i className='bx bx-heart'></i>
+                <i className='bx bxs-heart' ></i>
+              </div>
+            </h5>
           </div>
         </div>
         {url ? (
@@ -138,20 +177,23 @@ function renderMovieChooseError() {
   ReactDOM.render(<Render />, containPlayPage);
 }
 containMovie.id == "playpage" ? getKeyVideo(idCard) : null;
+
+
+
 async function getListPerformer(idCard){
   renderLoaderListPerformer()
   await fetch(`https://api.themoviedb.org/3/movie/${idCard}/credits?api_key=21a74c685cbdafbea65d58ebd993168f`)
   .then(res=> res.json())
   .then(data=>{
-    console.log(data.cast)
     data.cast.forEach(item=>{
       if(item.profile_path == null){
-        item.profile_path = "https://scontent.xx.fbcdn.net/v/t1.15752-9/345867784_773653300982442_1166101827656040665_n.png?stp=dst-png_s240x240&_nc_cat=111&ccb=1-7&_nc_sid=aee45a&_nc_ohc=QgO6diLvwSAAX8Ox4Ui&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdQGYgn7fQeCOOspRZLCXO3SH2VlqTE0gZE61qFkMOi_ng&oe=64833E61"
+        item.profile_path = "https://image.tmdb.org/t/p/w500/4PgEGuAb2KkaRb7P9PdK40pPeVH.jpg"
       } else{
         item.profile_path  = 'https://image.tmdb.org/t/p/w500' + item.profile_path
       }
       
     })
+    
     renderListPerfomer(data.cast)
   })
   .catch(error=>{
@@ -226,7 +268,7 @@ async function handleSimilar() {
           checkIdCard(idCard, dataSimilar.results);
           getKeyVideo(idCard);
           getListPerformer(idCard)
-        });
+        }); 
       });
     })
     .catch((error) => {
