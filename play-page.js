@@ -7,7 +7,6 @@ let skeletonArrayIndex = [
   0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
 ];
 let currentImgSearch = "";
-console.log(currentImgSearch)
 let currentTitleSearch = "";
 let currentLanguageSearch = "";
 let currentOverviewSearch = "";
@@ -65,6 +64,7 @@ function addFavoriteMovie(id,object) {
 
 async function getKeyVideo(idCard) {
   renderMovieChooseError();
+ 
   let apiMovie = `https://api.themoviedb.org/3/movie/${idCard}/videos?api_key=21a74c685cbdafbea65d58ebd993168f`;
   dataVideos = await fetch(apiMovie)
     .then((res) => res.json())
@@ -88,7 +88,6 @@ function renderMovieChoose(url) {
       'image' : currentImgSearch,
       'date' : currentReleaseSearch
     }
-
     const addMovie = () =>{
       addFavoriteMovie(idCard,objectFavourite)
     } 
@@ -269,14 +268,18 @@ async function handleSimilar() {
   dataSimilar = await fetch(apiSimilarMovies)
     .then((res) => res.json())
     .then((dataSimilar) => {
+      handleData(dataSimilar.results)
+     dataSimilar.results.forEach(item=>{
+      allDataMovies.push(item)
+     })
+     localStorage.setItem("allDataMovies",JSON.stringify(allDataMovies))
       renderSimilarMovies(dataSimilar.results);
       const getMoviesSimilar = document.querySelectorAll(".similar");
-      getMoviesSimilar.forEach((movie, index) => {
+      getMoviesSimilar.forEach((movie) => {
         movie.addEventListener("click", () => {
-          idCard = movie.id;
-          checkIdCard(idCard, dataSimilar.results);
-          getKeyVideo(idCard);
-          getListPerformer(idCard)
+          
+          localStorage.setItem("idCard", JSON.stringify(movie.id));
+          window.location.href = "./play-page.html";
         }); 
       });
     })

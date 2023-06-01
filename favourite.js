@@ -1,6 +1,5 @@
 let favoriteMovies = JSON.parse(localStorage.getItem('favoriteMovies')) || [];
-const containerFavourite = document.getElementById("favourites")
-console.log(favoriteMovies);
+const containMovie = document.querySelector("#favourites")
 function handleFavourite(){
     function RenderSimilarMovies() {
         return (
@@ -26,16 +25,14 @@ function handleFavourite(){
           </div>
         );
       }
-      ReactDOM.render(<RenderSimilarMovies />, containerFavourite)
+      ReactDOM.render(<RenderSimilarMovies />, containMovie)
 }
-console.log(containerFavourite.id)
-containerFavourite.id == "favourites" ? handleFavourite() : null
+containMovie.id == "favourites" ? handleFavourite() : null
 function saveID(selector) {
     const getCards = document.querySelectorAll(selector);
     getCards.forEach((getCard) => {
       getCard.addEventListener("click", () => {
         localStorage.setItem("idCard", JSON.stringify(getCard.id));
-        console.log(getCard)
         window.location.href = "./play-page.html";
       });
     });
