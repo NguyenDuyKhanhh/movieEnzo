@@ -514,12 +514,14 @@ body::-webkit-scrollbar-track {
   transition: 0.2s;
   cursor: pointer;
 }
+.play-page .reference h5 .add {
+  display: block;
+}
 .play-page .reference h5 .add:active {
   background-color: red;
   color: blue;
 }
 .play-page .reference h5 .remove {
-  position: absolute;
   display: none;
 }
 .play-page .reference h5 .remove:active {

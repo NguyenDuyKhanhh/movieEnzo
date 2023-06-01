@@ -526,12 +526,14 @@ $main-color: var(--text-color);
       transition: .2s;
       cursor: pointer;
      }
+     .add{
+      display:block;
+     }
      .add:active{
       background-color: red;
       color: blue;
      }
      .remove{
-      position: absolute;
       display: none;
      }
      .remove:active{

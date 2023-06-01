@@ -28,8 +28,8 @@ function handleFavourite(){
       }
       ReactDOM.render(<RenderSimilarMovies />, containerFavourite)
 }
-
-  containerFavourite.id === "favourites" ? handleFavourite() : null
+console.log(containerFavourite.id)
+containerFavourite.id == "favourites" ? handleFavourite() : null
 function saveID(selector) {
     const getCards = document.querySelectorAll(selector);
     getCards.forEach((getCard) => {

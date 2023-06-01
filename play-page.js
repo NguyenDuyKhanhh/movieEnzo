@@ -31,22 +31,38 @@ function checkIdCard(data, allData) {
     
   });
 }
-function addFavoriteMovie(id,object) {
-  // Kiểm tra xem localStorage đã có danh sách yêu thích hay chưa
-  let favoriteMovies = JSON.parse(localStorage.getItem('favoriteMovies')) || [];
-  
-  // Kiểm tra xem phim đã có trong danh sách yêu thích hay chưa
-  if (!favoriteMovies.find(item => item.id === id)) {
-    favoriteMovies.push(object);
-    
-    // Lưu danh sách phim vào localStorage
-    localStorage.setItem('favoriteMovies', JSON.stringify(favoriteMovies));
-    
-    console.log('Phim đã được thêm vào danh sách yêu thích.');
-  } else {
-    console.log('Phim đã tồn tại trong danh sách yêu thích.');
-  }
+let checkAdded = false
+let favoriteMovies = JSON.parse(localStorage.getItem('favoriteMovies')) || [];
+if(favoriteMovies.find(item => item.id === idCard)){
+  checkAdded = true
+}else{
+  checkAdded = false
 }
+function addFavoriteMovie(id,object) {
+  const addBtn = document.querySelector(".reference h5 .add")
+  const removeBtn = document.querySelector(".reference h5 .remove")
+
+  if (!favoriteMovies.find(item => item.id === id)) {
+    addBtn.style.display = 'none'
+    removeBtn.style.display = 'block'
+    favoriteMovies.push(object);
+
+    localStorage.setItem('favoriteMovies', JSON.stringify(favoriteMovies));
+  
+  } else if(favoriteMovies.find(item => item.id === id)) {
+    addBtn.style.display = 'block'
+    removeBtn.style.display = 'none'
+    var foundItem = favoriteMovies.find(item => item.id === id)
+    if (foundItem) {
+      var index = favoriteMovies.indexOf(foundItem);
+      favoriteMovies.splice(index, 1);
+    }
+    localStorage.setItem('favoriteMovies', JSON.stringify(favoriteMovies));
+  }
+
+}
+
+
 async function getKeyVideo(idCard) {
   renderMovieChooseError();
   let apiMovie = `https://api.themoviedb.org/3/movie/${idCard}/videos?api_key=21a74c685cbdafbea65d58ebd993168f`;
@@ -72,6 +88,7 @@ function renderMovieChoose(url) {
       'image' : currentImgSearch,
       'date' : currentReleaseSearch
     }
+
     const addMovie = () =>{
       addFavoriteMovie(idCard,objectFavourite)
     } 
@@ -103,13 +120,8 @@ function renderMovieChoose(url) {
               <span>Vote average:</span> {currentVoteSearch}
             </small>
             <h5>
-            <button className ="add" onClick={addMovie}>Add to the favourite movie</button>
-            <button className="remove">Remove to the favourite movie</button>
-
-              <div className="hearts">
-                <i className='bx bx-heart'></i>
-                <i className='bx bxs-heart' ></i>
-              </div>
+            <button className ="add" onClick={addMovie} style = {checkAdded ? {display:'none'}:{display:'block'}}>Add to the favourite movie</button>
+            <button onClick={addMovie} className="remove" style = {checkAdded ? {display:'block'}:{display:'none'}} >Remove to the favourite movie</button>
             </h5>
           </div>
         </div>
