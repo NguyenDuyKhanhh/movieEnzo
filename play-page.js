@@ -1,5 +1,5 @@
 let idCard = JSON.parse(localStorage.getItem("idCard"));
-const containPerformer = document.querySelector(".slider-performer .wrapper")
+const containPerformer = document.querySelector(".slider-performer .wrapper");
 const containPlayPage = document.querySelector(".play-page");
 let allDataMovies = JSON.parse(localStorage.getItem("allDataMovies"));
 const cardMovie = document.querySelector("#playpage");
@@ -27,44 +27,40 @@ function checkIdCard(data, allData) {
         currentVoteSearch = item.vote_average;
       }
     }
-    
   });
 }
-let checkAdded = false
-let favoriteMovies = JSON.parse(localStorage.getItem('favoriteMovies')) || [];
-if(favoriteMovies.find(item => item.id === idCard)){
-  checkAdded = true
-}else{
-  checkAdded = false
+let checkAdded = false;
+let favoriteMovies = JSON.parse(localStorage.getItem("favoriteMovies")) || [];
+if (favoriteMovies.find((item) => item.id === idCard)) {
+  checkAdded = true;
+} else {
+  checkAdded = false;
 }
-function addFavoriteMovie(id,object) {
-  const addBtn = document.querySelector(".reference h5 .add")
-  const removeBtn = document.querySelector(".reference h5 .remove")
+function addFavoriteMovie(id, object) {
+  const addBtn = document.querySelector(".reference small .addBtn");
+  const removeBtn = document.querySelector(".reference small .removeBtn");
 
-  if (!favoriteMovies.find(item => item.id === id)) {
-    addBtn.style.display = 'none'
-    removeBtn.style.display = 'block'
+  if (!favoriteMovies.find((item) => item.id === id)) {
+    addBtn.style.display = "none";
+    removeBtn.style.display = "block";
     favoriteMovies.push(object);
 
-    localStorage.setItem('favoriteMovies', JSON.stringify(favoriteMovies));
-  
-  } else if(favoriteMovies.find(item => item.id === id)) {
-    addBtn.style.display = 'block'
-    removeBtn.style.display = 'none'
-    var foundItem = favoriteMovies.find(item => item.id === id)
+    localStorage.setItem("favoriteMovies", JSON.stringify(favoriteMovies));
+  } else if (favoriteMovies.find((item) => item.id === id)) {
+    addBtn.style.display = "block";
+    removeBtn.style.display = "none";
+    var foundItem = favoriteMovies.find((item) => item.id === id);
     if (foundItem) {
       var index = favoriteMovies.indexOf(foundItem);
       favoriteMovies.splice(index, 1);
     }
-    localStorage.setItem('favoriteMovies', JSON.stringify(favoriteMovies));
+    localStorage.setItem("favoriteMovies", JSON.stringify(favoriteMovies));
   }
-
 }
-
 
 async function getKeyVideo(idCard) {
   renderMovieChooseError();
- 
+
   let apiMovie = `https://api.themoviedb.org/3/movie/${idCard}/videos?api_key=21a74c685cbdafbea65d58ebd993168f`;
   dataVideos = await fetch(apiMovie)
     .then((res) => res.json())
@@ -79,30 +75,49 @@ async function getKeyVideo(idCard) {
       renderMovieChooseError();
     });
 }
-
 function renderMovieChoose(url) {
   function Render() {
     let objectFavourite = {
-      'id': idCard,
-      'name' : currentTitleSearch,
-      'image' : currentImgSearch,
-      'date' : currentReleaseSearch
-    }
-    const addMovie = () =>{
-      addFavoriteMovie(idCard,objectFavourite)
-    } 
+      id: idCard,
+      name: currentTitleSearch,
+      image: currentImgSearch,
+      date: currentReleaseSearch,
+    };
+    const addMovie = () => {
+      addFavoriteMovie(idCard, objectFavourite);
+    };
     return (
       <div className="row">
         <div className="reference">
-         
           <div className="col l-4 m-12 c-12">
-           
             <img src={currentImgSearch} alt="" />
           </div>
           <div className="col l-8 m-12 c-12">
             <h1>
               <span>{currentTitleSearch}</span>
             </h1>
+            <small>
+              <button
+                onClick={addMovie}
+                style={checkAdded ? { display: "none" } : { display: "block" }}
+                className="addBtn"
+              >
+                <p>Follow
+                    <i className="bx bx-heart"></i>
+                </p>
+
+              </button>
+              <button
+                onClick={addMovie}
+                style={checkAdded ? { display: "block" } : { display: "none" }}
+                className="removeBtn"
+              >
+              <p>Followed
+                <i className="bx bxs-heart"></i>
+              </p>
+                
+              </button>
+            </small>
             <p>
               <span>Status:</span> Trailer
             </p>
@@ -118,10 +133,6 @@ function renderMovieChoose(url) {
             <small>
               <span>Vote average:</span> {currentVoteSearch}
             </small>
-            <h5>
-            <button className ="add" onClick={addMovie} style = {checkAdded ? {display:'none'}:{display:'block'}}>Add to the favourite movie</button>
-            <button onClick={addMovie} className="remove" style = {checkAdded ? {display:'block'}:{display:'none'}} >Remove to the favourite movie</button>
-            </h5>
           </div>
         </div>
         {url ? (
@@ -138,6 +149,7 @@ function renderMovieChoose(url) {
   }
   ReactDOM.render(<Render />, containPlayPage);
 }
+
 function renderMovieChooseError() {
   function Render() {
     return (
@@ -172,13 +184,11 @@ function renderMovieChooseError() {
             </small>
           </div>
         </div>
-        <div className="content grid wide iframe" >
+        <div className="content grid wide iframe">
           <div id="color-iframe">
-            <img  src= "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/5120x2880-dark-blue-solid-color-background.jpg/2560px-5120x2880-dark-blue-solid-color-background.jpg"/>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/5120x2880-dark-blue-solid-color-background.jpg/2560px-5120x2880-dark-blue-solid-color-background.jpg" />
           </div>
-        
         </div>
-        
       </div>
     );
   }
@@ -186,69 +196,66 @@ function renderMovieChooseError() {
 }
 containMovie.id == "playpage" ? getKeyVideo(idCard) : null;
 
-
-
-async function getListPerformer(idCard){
-  renderLoaderListPerformer()
-  await fetch(`https://api.themoviedb.org/3/movie/${idCard}/credits?api_key=21a74c685cbdafbea65d58ebd993168f`)
-  .then(res=> res.json())
-  .then(data=>{
-    data.cast.forEach(item=>{
-      if(item.profile_path == null){
-        item.profile_path = "https://image.tmdb.org/t/p/w500/4PgEGuAb2KkaRb7P9PdK40pPeVH.jpg"
-      } else{
-        item.profile_path  = 'https://image.tmdb.org/t/p/w500' + item.profile_path
-      }
-      
-    })
-    
-    renderListPerfomer(data.cast)
-  })
-  .catch(error=>{
-    renderLoaderListPerformer()
-  })
-}
-function renderListPerfomer(data){
-function Render(){
-  return(
-    <div className="row list-moviecast">
-             {
-              data.map(item=>(
-                <div key ={item.id} className="item col l-3 m-4 c-4">
-                <img src={item.profile_path} alt=""/>
-                <h1>{item.name}</h1>
-            </div>
-              ))
-             }
-             
-    </div>
+async function getListPerformer(idCard) {
+  renderLoaderListPerformer();
+  await fetch(
+    `https://api.themoviedb.org/3/movie/${idCard}/credits?api_key=21a74c685cbdafbea65d58ebd993168f`
   )
-}
-  ReactDOM.render(<Render />, containPerformer);
-}
-function renderLoaderListPerformer(){
-  function Render(){
-    return(
-      <div className="row list-moviecast">
-               {
-                skeletonArrayIndex.map(item=>(
-                  <div key ={item} className="item col l-3 m-4 c-4">
-                    <div className="content">
-                  <img src="https://www.solidbackgrounds.com/images/2480x3508/2480x3508-dark-slate-gray-solid-color-background.jpg" alt=""/>
-                    </div>
+    .then((res) => res.json())
+    .then((data) => {
+      data.cast.forEach((item) => {
+        if (item.profile_path == null) {
+          item.profile_path =
+            "https://image.tmdb.org/t/p/w500/4PgEGuAb2KkaRb7P9PdK40pPeVH.jpg";
+        } else {
+          item.profile_path =
+            "https://image.tmdb.org/t/p/w500" + item.profile_path;
+        }
+      });
 
-                  <h1>Loading...</h1>
-              </div>
-                ))
-               }
-               
+      renderListPerfomer(data.cast);
+    })
+    .catch((error) => {
+      renderLoaderListPerformer();
+    });
+}
+function renderListPerfomer(data) {
+  function Render() {
+    return (
+      <div className="row list-moviecast">
+        {data.map((item) => (
+          <div key={item.id} className="item col l-3 m-4 c-4">
+            <img src={item.profile_path} alt="" />
+            <h1>{item.name}</h1>
+          </div>
+        ))}
       </div>
-    )
+    );
   }
   ReactDOM.render(<Render />, containPerformer);
-
 }
-containMovie.id == "playpage" ? getListPerformer(idCard) : null
+function renderLoaderListPerformer() {
+  function Render() {
+    return (
+      <div className="row list-moviecast">
+        {skeletonArrayIndex.map((item) => (
+          <div key={item} className="item col l-3 m-4 c-4">
+            <div className="content">
+              <img
+                src="https://www.solidbackgrounds.com/images/2480x3508/2480x3508-dark-slate-gray-solid-color-background.jpg"
+                alt=""
+              />
+            </div>
+
+            <h1>Loading...</h1>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  ReactDOM.render(<Render />, containPerformer);
+}
+containMovie.id == "playpage" ? getListPerformer(idCard) : null;
 function handleData(data) {
   data.forEach((item) => {
     if (item.title == undefined) {
@@ -268,19 +275,18 @@ async function handleSimilar() {
   dataSimilar = await fetch(apiSimilarMovies)
     .then((res) => res.json())
     .then((dataSimilar) => {
-      handleData(dataSimilar.results)
-     dataSimilar.results.forEach(item=>{
-      allDataMovies.push(item)
-     })
-     localStorage.setItem("allDataMovies",JSON.stringify(allDataMovies))
+      handleData(dataSimilar.results);
+      dataSimilar.results.forEach((item) => {
+        allDataMovies.push(item);
+      });
+      localStorage.setItem("allDataMovies", JSON.stringify(allDataMovies));
       renderSimilarMovies(dataSimilar.results);
       const getMoviesSimilar = document.querySelectorAll(".similar");
       getMoviesSimilar.forEach((movie) => {
         movie.addEventListener("click", () => {
-          
           localStorage.setItem("idCard", JSON.stringify(movie.id));
           window.location.href = "./play-page.html";
-        }); 
+        });
       });
     })
     .catch((error) => {

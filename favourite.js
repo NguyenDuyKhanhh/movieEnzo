@@ -1,5 +1,6 @@
 let favoriteMovies = JSON.parse(localStorage.getItem('favoriteMovies')) || [];
 const containMovie = document.querySelector("#favourites")
+localStorage.setItem("allDataMovies",JSON.stringify(allDataMovies))
 function handleFavourite(){
     function RenderSimilarMovies() {
         return (
