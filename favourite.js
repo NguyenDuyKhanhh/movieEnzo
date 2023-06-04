@@ -1,8 +1,17 @@
 let favoriteMovies = JSON.parse(localStorage.getItem('favoriteMovies')) || [];
+
 const containMovie = document.querySelector("#favourites")
 localStorage.setItem("allDataMovies",JSON.stringify(allDataMovies))
 function handleFavourite(){
     function RenderSimilarMovies() {
+      if(favoriteMovies.length == 0){
+        return(
+          <div className="noResultFavourite">
+            The list of favorites doesn't contain any movies.
+          </div>
+        )
+      }
+      else
         return (
           <div className="row">
             {favoriteMovies.map((item) => (

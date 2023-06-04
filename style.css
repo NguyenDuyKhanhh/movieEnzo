@@ -719,6 +719,12 @@ iframe::before {
   width: 0px;
 }
 
+.noResultFavourite {
+  color: var(--text-color);
+  text-align: center;
+  margin-top: 40px;
+}
+
 @media (max-width: 739px) {
   body::-webkit-scrollbar {
     width: 2px;
