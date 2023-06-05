@@ -67,17 +67,15 @@ body::-webkit-scrollbar-track {
   top: 0;
   right: 0;
   left: 0;
-
   z-index: 1000;
-  padding: 10px 0;
+  padding: 15px 0 0 0;
   margin: 0 auto;
   transition: .2s;
   img {
-    width: 220px;
+    width: 200px;
     transition: .2s;
     overflow: hidden;
-    filter: contrast(200%);
-    margin-top: 10px;
+    filter: drop-shadow(0 0 0.75rem rgb(69, 183, 177));
     transition: .2s;
   }
   img.contrast {
@@ -101,7 +99,7 @@ body::-webkit-scrollbar-track {
     border-radius: 20px;
     background-color: var(--box-color);
     justify-self: flex-end;
-    margin-top: 8px;
+
      label {
     position: relative;
     display: flex;
@@ -521,7 +519,8 @@ $main-color: var(--text-color);
         border-radius: 20px;
         padding: 5px 10px;
         color: var(--text-color);
-        margin: 5px 0;
+        margin: 10px 0;
+        transition: .5s;
         p{
           display: flex;
           align-items: center;
@@ -536,14 +535,13 @@ $main-color: var(--text-color);
 
       }
       .addBtn{
-          display: block;
             background-color: var(--box-color);
           i{
             color: red;
           }
         }
         .removeBtn{
-          display: none;
+
           background-color: red;
           color: white;
           i{
@@ -556,6 +554,7 @@ $main-color: var(--text-color);
       width: 100%;
       object-fit: cover;
       border-radius: 10px;
+      z-index: 100;
     }
     span {
       color: var(--text-color);
@@ -761,6 +760,7 @@ small {
   }
   .header {
     img {
+
       margin-top: 0;
     }
     .form {
@@ -902,9 +902,9 @@ small {
   }
 
   .header {
-    padding: 12px 5px 0 5px;
+    padding: 0px 5px 0 5px;
     img {
-      width: 100px;
+      width: 70px;
     }
   }
   .contain-movies{
@@ -947,9 +947,9 @@ small {
     padding: 0 10px;
   }
   .header {
-    padding: 10px;
+    padding: 10px 10px 0 10px;
     img {
-      width: 140px;
+      width: 100px;
     }
     .form{
       margin-top: 2px;

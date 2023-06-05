@@ -75,7 +75,7 @@ body::-webkit-scrollbar-track {
   right: 0;
   left: 0;
   z-index: 1000;
-  padding: 10px 0;
+  padding: 15px 0 0 0;
   margin: 0 auto;
   transition: 0.2s;
   /* From uiverse.io by @satyamchaudharydev */
@@ -83,11 +83,10 @@ body::-webkit-scrollbar-track {
   /* == type to see fully interactive and click the close buttom to remove the text  == */
 }
 .header img {
-  width: 220px;
+  width: 200px;
   transition: 0.2s;
   overflow: hidden;
-  filter: contrast(200%);
-  margin-top: 10px;
+  filter: drop-shadow(0 0 0.75rem rgb(69, 183, 177));
   transition: 0.2s;
 }
 .header img.contrast {
@@ -106,7 +105,6 @@ body::-webkit-scrollbar-track {
   border-radius: 20px;
   background-color: var(--box-color);
   justify-self: flex-end;
-  margin-top: 8px;
 }
 .header .form label {
   position: relative;
@@ -505,7 +503,8 @@ body::-webkit-scrollbar-track {
   border-radius: 20px;
   padding: 5px 10px;
   color: var(--text-color);
-  margin: 5px 0;
+  margin: 10px 0;
+  transition: 0.5s;
 }
 .play-page .reference small button p {
   display: flex;
@@ -518,14 +517,12 @@ body::-webkit-scrollbar-track {
   margin-left: 5px;
 }
 .play-page .reference small .addBtn {
-  display: block;
   background-color: var(--box-color);
 }
 .play-page .reference small .addBtn i {
   color: red;
 }
 .play-page .reference small .removeBtn {
-  display: none;
   background-color: red;
   color: white;
 }
@@ -537,6 +534,7 @@ body::-webkit-scrollbar-track {
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 10px;
+  z-index: 100;
 }
 .play-page .reference span {
   color: var(--text-color);
@@ -853,10 +851,10 @@ iframe::before {
     padding: 0 5px;
   }
   .header {
-    padding: 12px 5px 0 5px;
+    padding: 0px 5px 0 5px;
   }
   .header img {
-    width: 100px;
+    width: 70px;
   }
   .contain-movies {
     width: 100%;
@@ -891,10 +889,10 @@ iframe::before {
     padding: 0 10px;
   }
   .header {
-    padding: 10px;
+    padding: 10px 10px 0 10px;
   }
   .header img {
-    width: 140px;
+    width: 100px;
   }
   .header .form {
     margin-top: 2px;

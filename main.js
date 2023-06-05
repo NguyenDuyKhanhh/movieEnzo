@@ -306,7 +306,7 @@ function searchMovie() {
     } else if (MoviesSearch.length == 0) {
       return (
         <div className="contain-movies" id="no-result">
-          No movies for this result!
+         There are no movies !
         </div>
       );
     } else {
@@ -355,6 +355,8 @@ var isDarkModeEnabled = localStorage.getItem('darkMode') === 'true';
 inputToggle.checked =  isDarkModeEnabled
 applyDarkMode(isDarkModeEnabled);
 
+let saveTab = containMovie.id
+containMovie.id == saveTab ? document.querySelector("#tab-"+ `${saveTab}`).style.color = "var(--text-color)" : {}
 
 
 // Hàm áp dụng trạng thái Dark Mode vào giao diện

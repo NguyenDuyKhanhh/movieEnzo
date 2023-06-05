@@ -1,6 +1,4 @@
 let favoriteMovies = JSON.parse(localStorage.getItem('favoriteMovies')) || [];
-
-const containMovie = document.querySelector("#favourites")
 localStorage.setItem("allDataMovies",JSON.stringify(allDataMovies))
 function handleFavourite(){
     function RenderSimilarMovies() {
@@ -37,6 +35,7 @@ function handleFavourite(){
       }
       ReactDOM.render(<RenderSimilarMovies />, containMovie)
 }
+
 containMovie.id == "favourites" ? handleFavourite() : null
 function saveID(selector) {
     const getCards = document.querySelectorAll(selector);
@@ -48,3 +47,4 @@ function saveID(selector) {
     });
   }
   saveID(".card")
+ 
