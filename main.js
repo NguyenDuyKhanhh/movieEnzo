@@ -79,7 +79,7 @@ function nextPage() {
   if (currentPage != 3) {
     currentPage++;
     movieHome(currentPage);
-    nowPage.innerText = "Page " + currentPage;
+    nowPage.innerText = "Page : " + currentPage;
     next.style.display = "block";
   }
   if (currentPage == 3) {
@@ -94,7 +94,7 @@ function prevPage() {
   if (currentPage != 1) {
     currentPage--;
     movieHome(currentPage);
-    nowPage.innerText = "Page " + currentPage;
+    nowPage.innerText = "Page :  " + currentPage;
     prev.style.display = "block";
   }
   if (currentPage == 1) {
@@ -282,7 +282,12 @@ Promise.all([
 const resultsSearch = document.querySelector(".results-search");
 const close = document.querySelector(".close i");
 const inputSearch = document.querySelector("#input-search");
-
+inputSearch.addEventListener("keydown", function(event) {
+  if (event.keyCode === 13) { 
+    event.preventDefault();
+  
+  }
+});
 let checkGetData = false;
 let allDataMovies;
 function searchMovie() {
@@ -356,7 +361,9 @@ inputToggle.checked =  isDarkModeEnabled
 applyDarkMode(isDarkModeEnabled);
 
 let saveTab = containMovie.id
-containMovie.id == saveTab ? document.querySelector("#tab-"+ `${saveTab}`).style.color = "var(--text-color)" : {}
+while(containMovie.id != "playpage"){
+  containMovie.id == saveTab ? document.querySelector("#tab-"+ `${saveTab}`).style.color = "var(--text-color)" : {}
+}
 
 
 // Hàm áp dụng trạng thái Dark Mode vào giao diện

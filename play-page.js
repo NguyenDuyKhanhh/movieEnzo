@@ -119,20 +119,20 @@ function renderMovieChoose(url) {
               </button>
             </small>
             <p>
-              <span>Status:</span> Trailer
+              <span>Status: </span> Trailer
             </p>
             <h2>
-              <span>language:</span> {currentLanguageSearch}
+              <span>Language: </span> {currentLanguageSearch}
             </h2>
             <h3>
-              <span>Overview:</span> {currentOverviewSearch}
+              <span>Overview: </span> {currentOverviewSearch}
             </h3>
             <h4>
-              <span>Release date:</span> {currentReleaseSearch}
+              <span>Release date: </span> {currentReleaseSearch}
             </h4>
-            <small>
-              <span>Vote average:</span> {currentVoteSearch}
-            </small>
+            <h5>
+              <span>Vote average:  </span>{currentVoteSearch} point
+            </h5>
           </div>
         </div>
         {url ? (
@@ -168,19 +168,19 @@ function renderMovieChooseError() {
               <span>Loading title...</span>
             </h1>
             <p>
-              <span>Status:</span> Loading...
+              <span>Status: </span> Loading...
             </p>
             <h2>
-              <span>language:</span> Loading...
+              <span>language: </span> Loading...
             </h2>
             <h3>
-              <span>Overview:</span> Loading...
+              <span>Overview: </span> Loading...
             </h3>
             <h4>
-              <span>Release date:</span> Loading...
+              <span>Release date: </span> Loading...
             </h4>
             <small>
-              <span>Vote average:</span> Loading...
+              <span>Vote average: </span> Loading...
             </small>
           </div>
         </div>

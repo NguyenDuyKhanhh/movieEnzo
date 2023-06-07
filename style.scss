@@ -41,7 +41,7 @@ body::-webkit-scrollbar {
 }
 body::-webkit-scrollbar-thumb {
   background-color: var(--text-color);
-  border-radius: 10px;
+  border-radius: 5px;
 }
 body::-webkit-scrollbar-track {
   background-color: var(--background-color);
@@ -186,7 +186,7 @@ body::-webkit-scrollbar-track {
   height: 24px;
   right: 10px;
   top: 25%;
-  border-radius: 10px;
+  border-radius: 5px;
 
 }
 
@@ -286,7 +286,7 @@ body::-webkit-scrollbar-track {
       width: 100%;
       -webkit-overflow-scrolling: touch;
       object-fit: cover;
-      border-radius: 10px;
+      border-radius: 5px;
       margin-top: 110px;
     }
   }
@@ -322,7 +322,7 @@ body::-webkit-scrollbar-track {
   font-weight: 700;
   padding: 20px 10px;
   display: block;
-  border-radius: 10px;
+  border-radius: 5px;
   transition: .2s;
 }
 .series.grid {
@@ -433,6 +433,7 @@ body::-webkit-scrollbar-track {
       width: 100%;
       transition: .2s;
       cursor: pointer;
+      border-radius: 5px;
     }
 
     img:hover {
@@ -440,7 +441,7 @@ body::-webkit-scrollbar-track {
     }
     div {
       overflow: hidden;
-      border-radius: 10px;
+      border-radius: 5px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -452,7 +453,7 @@ body::-webkit-scrollbar-track {
       width: 105px;
       transition: 0.2s;
       opacity: 0;
-      border-radius: 10px;
+      border-radius: 5px;
     }
     div:hover .play {
       width: 55px;
@@ -478,7 +479,7 @@ body::-webkit-scrollbar-track {
     margin: 20px 10px 60px 10px;
     padding: 5px 7px;
     border: none;
-    border-radius: 2px;
+    border-radius: 5px;
     color: var(--box-color);
     background-color: var(--text-color);
     cursor: pointer;
@@ -499,6 +500,9 @@ $main-color: var(--text-color);
     line-height: 40px;
     margin-bottom: 20px;
     position: relative;
+      h5,h4,p,h3,h2{
+    font-size: 17px;
+  }
     h1{
       display: flex;
       align-items: center;
@@ -512,7 +516,7 @@ $main-color: var(--text-color);
       margin-left: 5px;
       position: relative;
       margin-left: 0;
-
+ 
       button{
         position: relative;
         border: none;
@@ -550,10 +554,11 @@ $main-color: var(--text-color);
         }
     
   }
+
     img {
       width: 100%;
       object-fit: cover;
-      border-radius: 10px;
+      border-radius: 5px;
       z-index: 100;
     }
     span {
@@ -565,7 +570,7 @@ $main-color: var(--text-color);
 iframe {
   display: block;
   height: 600px;
-  border-radius: 10px;
+  border-radius: 5px;
   position: relative;
   bottom: 10px;
   position: relative;
@@ -644,7 +649,7 @@ iframe::before {
   transform-style: preserve-3d;
   transition: transform 300ms;
   box-shadow: 0px 0px 10px 1px #000000ee;
-  border-radius: 10px;
+  border-radius: 5px;
   overflow: hidden;
 }
 .card-recss{
@@ -662,7 +667,7 @@ img{
 }
 div {
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -724,11 +729,13 @@ small {
         max-height: 480px;
       img{
         width: 100%; 
+        border-radius: 5px;
       }
       h1{
         margin-top: 10px;
         text-align: center;
         color: var(--text-color);
+        font-size: 20px;
       }
     }
 
@@ -747,6 +754,18 @@ small {
 @media (max-width: 739px) {
   body::-webkit-scrollbar {
     width: 2px;
+  }
+  .slider-performer{
+    .wrapper{
+      .list-moviecast{
+        .item{
+                h1{
+          font-size: 12px;
+        }  
+        }
+
+      }
+    }
   }
   .form {
     margin-top: 0;
@@ -843,7 +862,9 @@ small {
   .reference {
     flex-wrap: wrap;
     font-size: 13px;
-
+    h5,h4,p,h3,h2{
+      font-size: 14px;
+    }
     img {
       height: 100%;
  
@@ -880,6 +901,14 @@ small {
       }
     }
   }
+  .play-page{
+    .reference{
+      line-height: 30px;
+  h5,h4,p,h3,h2{
+    font-size: 15px;
+  }
+}
+  }
 
 .iframe {
     width: 100%;
@@ -914,16 +943,25 @@ small {
   .slider-performer{
     .wrapper{
       .list-moviecast{
-         max-height: 240px;
-
-        h1{
-          font-size: 14px;
+        .item{
+                h1{
+          font-size: 12px;
+        }  
         }
+
       }
     }
   }
 }
 @media (min-width: 360px) and (max-width: 600px) {
+  .play-page{
+    .reference{
+      line-height: 35px;
+  h5,h4,p,h3,h2{
+    font-size: 15px;
+  }
+}
+  }
   .navigation-dots {
     .dot {
       width: 5px;
@@ -958,9 +996,12 @@ small {
   .slider-performer{
     .wrapper{
       .list-moviecast{
-        h1{
-          font-size: 17px;
+        .item{
+                h1{
+          font-size: 12px;
+        }  
         }
+
       }
     }
   }
@@ -986,6 +1027,18 @@ small {
   }
   .contain-movies{
     top: 8%;
+  }
+  .slider-performer{
+    .wrapper{
+      .list-moviecast{
+        .item{
+                h1{
+          font-size: 12px;
+        }  
+        }
+
+      }
+    }
   }
 }
 @media (min-width: 739px) and (max-width: 1024px) {
@@ -1030,9 +1083,12 @@ small {
   .slider-performer{
     .wrapper{
       .list-moviecast{
-        h1{
-          font-size: 20px;
+        .item{
+                h1{
+          font-size: 17px;
+        }  
         }
+
       }
     }
   }

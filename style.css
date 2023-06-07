@@ -46,7 +46,7 @@ body::-webkit-scrollbar {
 
 body::-webkit-scrollbar-thumb {
   background-color: var(--text-color);
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 body::-webkit-scrollbar-track {
@@ -181,7 +181,7 @@ body::-webkit-scrollbar-track {
   height: 24px;
   right: 10px;
   top: 25%;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .loader div {
@@ -280,7 +280,7 @@ body::-webkit-scrollbar-track {
   -webkit-overflow-scrolling: touch;
   -o-object-fit: cover;
      object-fit: cover;
-  border-radius: 10px;
+  border-radius: 5px;
   margin-top: 110px;
 }
 .slider-container .slider::-webkit-scrollbar {
@@ -314,7 +314,7 @@ body::-webkit-scrollbar-track {
   font-weight: 700;
   padding: 20px 10px;
   display: block;
-  border-radius: 10px;
+  border-radius: 5px;
   transition: 0.2s;
 }
 
@@ -423,13 +423,14 @@ body::-webkit-scrollbar-track {
   width: 100%;
   transition: 0.2s;
   cursor: pointer;
+  border-radius: 5px;
 }
 .movie .card img:hover {
   transform: scale(1.2);
 }
 .movie .card div {
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -440,7 +441,7 @@ body::-webkit-scrollbar-track {
   width: 105px;
   transition: 0.2s;
   opacity: 0;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 .movie .card div:hover .play {
   width: 55px;
@@ -466,7 +467,7 @@ body::-webkit-scrollbar-track {
   margin: 20px 10px 60px 10px;
   padding: 5px 7px;
   border: none;
-  border-radius: 2px;
+  border-radius: 5px;
   color: var(--box-color);
   background-color: var(--text-color);
   cursor: pointer;
@@ -484,6 +485,9 @@ body::-webkit-scrollbar-track {
   line-height: 40px;
   margin-bottom: 20px;
   position: relative;
+}
+.play-page .reference h5, .play-page .reference h4, .play-page .reference p, .play-page .reference h3, .play-page .reference h2 {
+  font-size: 17px;
 }
 .play-page .reference h1 {
   display: flex;
@@ -533,7 +537,7 @@ body::-webkit-scrollbar-track {
   width: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-  border-radius: 10px;
+  border-radius: 5px;
   z-index: 100;
 }
 .play-page .reference span {
@@ -543,7 +547,7 @@ body::-webkit-scrollbar-track {
 iframe {
   display: block;
   height: 600px;
-  border-radius: 10px;
+  border-radius: 5px;
   position: relative;
   bottom: 10px;
   position: relative;
@@ -627,7 +631,7 @@ iframe::before {
   transform-style: preserve-3d;
   transition: transform 300ms;
   box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.9333333333);
-  border-radius: 10px;
+  border-radius: 5px;
   overflow: hidden;
 }
 
@@ -645,7 +649,7 @@ iframe::before {
 }
 .card-recss div {
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -707,11 +711,13 @@ iframe::before {
 }
 .slider-performer .wrapper .list-moviecast .item img {
   width: 100%;
+  border-radius: 5px;
 }
 .slider-performer .wrapper .list-moviecast .item h1 {
   margin-top: 10px;
   text-align: center;
   color: var(--text-color);
+  font-size: 20px;
 }
 .slider-performer .wrapper::-webkit-scrollbar {
   width: 0px;
@@ -726,6 +732,9 @@ iframe::before {
 @media (max-width: 739px) {
   body::-webkit-scrollbar {
     width: 2px;
+  }
+  .slider-performer .wrapper .list-moviecast .item h1 {
+    font-size: 12px;
   }
   .form {
     margin-top: 0;
@@ -805,6 +814,9 @@ iframe::before {
     flex-wrap: wrap;
     font-size: 13px;
   }
+  .reference h5, .reference h4, .reference p, .reference h3, .reference h2 {
+    font-size: 14px;
+  }
   .reference img {
     height: 100%;
   }
@@ -834,6 +846,12 @@ iframe::before {
   .slider-container .navigation-dots .dot.active {
     background-color: var(--text-color);
   }
+  .play-page .reference {
+    line-height: 30px;
+  }
+  .play-page .reference h5, .play-page .reference h4, .play-page .reference p, .play-page .reference h3, .play-page .reference h2 {
+    font-size: 15px;
+  }
   .iframe {
     width: 100%;
     height: 200px;
@@ -860,14 +878,17 @@ iframe::before {
     width: 100%;
     top: 12%;
   }
-  .slider-performer .wrapper .list-moviecast {
-    max-height: 240px;
-  }
-  .slider-performer .wrapper .list-moviecast h1 {
-    font-size: 14px;
+  .slider-performer .wrapper .list-moviecast .item h1 {
+    font-size: 12px;
   }
 }
 @media (min-width: 360px) and (max-width: 600px) {
+  .play-page .reference {
+    line-height: 35px;
+  }
+  .play-page .reference h5, .play-page .reference h4, .play-page .reference p, .play-page .reference h3, .play-page .reference h2 {
+    font-size: 15px;
+  }
   .navigation-dots .dot {
     width: 5px;
     height: 5px;
@@ -897,8 +918,8 @@ iframe::before {
   .header .form {
     margin-top: 2px;
   }
-  .slider-performer .wrapper .list-moviecast h1 {
-    font-size: 17px;
+  .slider-performer .wrapper .list-moviecast .item h1 {
+    font-size: 12px;
   }
 }
 @media (min-width: 600px) and (max-width: 739px) {
@@ -922,6 +943,9 @@ iframe::before {
   }
   .contain-movies {
     top: 8%;
+  }
+  .slider-performer .wrapper .list-moviecast .item h1 {
+    font-size: 12px;
   }
 }
 @media (min-width: 739px) and (max-width: 1024px) {
@@ -961,8 +985,8 @@ iframe::before {
   .reference {
     flex-wrap: wrap;
   }
-  .slider-performer .wrapper .list-moviecast h1 {
-    font-size: 20px;
+  .slider-performer .wrapper .list-moviecast .item h1 {
+    font-size: 17px;
   }
 }
 @media (min-width: 1024px) and (max-width: 1425px) {
