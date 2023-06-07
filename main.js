@@ -1,16 +1,12 @@
 const containMovie = document.querySelector(".movie");
 const clearSearch = document.querySelector(".close-btn");
 const btnsPage = document.querySelector(".navbar");
-const slides = document.querySelectorAll(".banner img");
-const nextSlider = document.querySelector(".bx-chevron-right");
-const prevSlider = document.querySelector(".bx-chevron-left");
 const next = document.querySelector(".exchange-page a .next");
 const prev = document.querySelector(".exchange-page a .prev");
 const loader = document.querySelector(".loader");
 const favourites = document.querySelector("#favourite");
 const nowPage = document.querySelector("#popular-series h1");
-const slider = document.querySelector(".slider");
-const dots = document.querySelectorAll(".dot");
+
 
 let skeletonArrayIndex = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
 let scrollInterval;
@@ -186,39 +182,42 @@ function saveID(selector) {
     });
   });
 }
+const slider = document.querySelector(".banner-slider .wrapper .slider")
+const allImgBanner = document.querySelectorAll(".banner-slider .wrapper .slider img")
+const nextSlide = document.querySelector(".banner-slider .wrapper .arrowRight")
+const prevSlide = document.querySelector(".banner-slider .wrapper .arrowLeft")
 
-function handleSlider() {
-  dots.forEach((dot, index) => {
-    dot.addEventListener("click", () => {
-      clearInterval(scrollInterval);
-      slider.scrollTo({ left: index * slider.offsetWidth, behavior: "smooth" });
-      setSliderInterval();
-      setActiveDot(index);
-    });
-  });
-
-  function setSliderInterval() {
-    scrollInterval = setInterval(() => {
-      const currentIndex = Array.from(dots).findIndex((dot) =>
-        dot.classList.contains("active")
-      );
-      const nextIndex = (currentIndex + 1) % dots.length;
-      slider.scrollTo({
-        left: nextIndex * slider.offsetWidth,
-        behavior: "smooth",
-      });
-      setActiveDot(nextIndex);
-    }, 3000);
+let positionX = 0;
+console.log(allImgBanner.length)
+const handleNextSlide = ()=>{
+  positionX -= slider.offsetWidth
+  if(positionX === -slider.offsetWidth * (allImgBanner.length)) 
+  {
+   positionX = 0
   }
-
-  function setActiveDot(index) {
-    dots.forEach((dot) => dot.classList.remove("active"));
-    dots[index].classList.add("active");
-  }
-
-  setSliderInterval();
+   slider.style.setProperty('transform',`translateX(${positionX}px)`) 
 }
-handleSlider();
+let interval = setInterval(handleNextSlide, 3000);
+  function restartInterval(time){
+    clearInterval(interval)
+    interval = setInterval(handleNextSlide,time)
+  }
+    nextSlide.addEventListener("click",()=>{
+      handleNextSlide()
+      restartInterval(3000)
+    })
+    const handlePrevSlide = () => {
+      positionX += slider.offsetWidth;
+      if (positionX === slider.offsetWidth) {
+        positionX = (-slider.offsetWidth * (allImgBanner.length-1));
+      }
+      slider.style.setProperty('transform', `translateX(${positionX}px)`);
+    }
+    
+    prevSlide.addEventListener("click", () => {
+      handlePrevSlide();
+      restartInterval(3000);
+    });
 let getAllDataPopular = [];
 let getId = [];
 
