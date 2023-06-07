@@ -194,7 +194,7 @@ function handleDots(){
   for(let i =0;i<allDots.length ; i++){
     allDots[i].style.backgroundColor = "var(--ontab-color)"
   }
-  document.querySelector(".banner-slider .dots .dot.dot"+ `${currentIndex}`).style.backgroundColor = "var(--origin-color)"
+  document.querySelector(".banner-slider .dots .dot.dot"+ `${currentIndex}`).style.backgroundColor = "white"
 }
 const handleNextSlide = ()=>{
   positionX -= slider.offsetWidth
