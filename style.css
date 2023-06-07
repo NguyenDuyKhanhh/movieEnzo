@@ -307,14 +307,13 @@ body::-webkit-scrollbar-track {
 .banner-slider .wrapper .slider {
   display: flex;
   margin-top: 120px;
-  transition: 0.5s;
 }
 .banner-slider .wrapper .slider img {
   width: 100%;
-  scroll-snap-align: start;
   flex: 0 0 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  border-radius: 5px;
 }
 
 .series {

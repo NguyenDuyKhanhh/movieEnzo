@@ -309,12 +309,11 @@ body::-webkit-scrollbar-track {
     .slider {
       display: flex;
       margin-top: 120px;
-      transition: 0.5s;
       img {
         width: 100%;
-        scroll-snap-align: start;
         flex: 0 0 100%;
         object-fit: cover;
+        border-radius: 5px;
       }
     }
   }
