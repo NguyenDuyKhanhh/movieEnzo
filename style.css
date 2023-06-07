@@ -264,6 +264,25 @@ body::-webkit-scrollbar-track {
   animation-delay: -0.1s;
 }
 
+.banner-slider {
+  position: relative;
+}
+.banner-slider .dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.banner-slider .dots .dot {
+  margin: -40px 5px 0 5px;
+  bottom: 10px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--ontab-color);
+  border: 5px;
+  z-index: 100;
+}
 .banner-slider .wrapper {
   overflow: hidden;
   position: relative;
@@ -915,13 +934,6 @@ iframe::before {
   .play-page .reference h3,
   .play-page .reference h2 {
     font-size: 15px;
-  }
-  .navigation-dots .dot {
-    width: 5px;
-    height: 5px;
-  }
-  .navigation-dots .dot.active {
-    background-color: var(--text-color);
   }
   .contain-movies {
     width: 100%;

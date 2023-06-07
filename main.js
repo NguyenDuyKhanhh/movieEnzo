@@ -177,7 +177,6 @@ function saveID(selector) {
   getCards.forEach((getCard) => {
     getCard.addEventListener("click", () => {
       localStorage.setItem("idCard", JSON.stringify(getCard.id));
-      console.log(getCard)
       window.location.href = "./play-page.html";
     });
   });
@@ -186,18 +185,31 @@ const slider = document.querySelector(".banner-slider .wrapper .slider")
 const allImgBanner = document.querySelectorAll(".banner-slider .wrapper .slider img")
 const nextSlide = document.querySelector(".banner-slider .wrapper .arrowRight")
 const prevSlide = document.querySelector(".banner-slider .wrapper .arrowLeft")
-
+const allDots = document.querySelectorAll(".banner-slider .dots .dot")
 let positionX = 0;
-console.log(allImgBanner.length)
+let currentIndex = 0;
+handleDots()
+function handleDots(){
+
+  for(let i =0;i<allDots.length ; i++){
+    allDots[i].style.backgroundColor = "var(--ontab-color)"
+  }
+  document.querySelector(".banner-slider .dots .dot.dot"+ `${currentIndex}`).style.backgroundColor = "var(--origin-color)"
+}
 const handleNextSlide = ()=>{
   positionX -= slider.offsetWidth
+  
+  positionX === -slider.offsetWidth * (allImgBanner.length) ? currentIndex =0 : currentIndex++;
+handleDots()
   if(positionX === -slider.offsetWidth * (allImgBanner.length)) 
   {
+    
    positionX = 0
   }
    slider.style.setProperty('transform',`translateX(${positionX}px)`) 
 }
 let interval = setInterval(handleNextSlide, 3000);
+
   function restartInterval(time){
     clearInterval(interval)
     interval = setInterval(handleNextSlide,time)
@@ -208,9 +220,13 @@ let interval = setInterval(handleNextSlide, 3000);
     })
     const handlePrevSlide = () => {
       positionX += slider.offsetWidth;
+      positionX === slider.offsetWidth ? currentIndex = allImgBanner.length-1 : currentIndex--
+      handleDots()
       if (positionX === slider.offsetWidth) {
         positionX = (-slider.offsetWidth * (allImgBanner.length-1));
+       
       }
+       
       slider.style.setProperty('transform', `translateX(${positionX}px)`);
     }
     

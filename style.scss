@@ -268,9 +268,27 @@ body::-webkit-scrollbar-track {
 }
 
 .banner-slider{
+  position: relative;
+  .dots{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .dot{
+      margin: -40px 5px 0 5px;
+      bottom: 10px;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--ontab-color);
+      border: 5px;
+      z-index: 100;
+    }
+  }
   .wrapper {
     overflow: hidden;
     position: relative;
+
     i{
       position: absolute;
       top: 50%;
@@ -973,15 +991,7 @@ iframe::before {
       }
     }
   }
-  .navigation-dots {
-    .dot {
-      width: 5px;
-      height: 5px;
-    }
-    .dot.active {
-      background-color: var(--text-color);
-    }
-  }
+
   .contain-movies {
     width: 100%;
     top: 8%;
