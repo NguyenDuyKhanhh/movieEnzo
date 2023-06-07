@@ -17,6 +17,7 @@ body {
   --box-color: rgb(46, 46, 58);
   --text-color: rgb(234, 166, 51);
   --background-border: rgba(255, 255, 255, 0.116);
+  --ontab-color: rgb(234, 166, 51);
   width: 100%;
   height: 100%;
   background-color: var(--background-color);
@@ -31,10 +32,12 @@ body.dark {
   --box-color: #e4e5f1;
   --text-color: #484b6a;
   --background-border: #484b6a2a;
+  --ontab-color: rgb(244, 150, 166);
   width: 100%;
   height: 100%;
   background-color: var(--background-color);
   position: relative;
+
 }
 body::-webkit-scrollbar {
   width: 5px;
@@ -79,13 +82,8 @@ body::-webkit-scrollbar-track {
     transition: .2s;
   }
   img.contrast {
-    filter: blur(20deg);
-
-    filter: invert(77%);
+    filter: brightness(40%) drop-shadow(10px 10px 0.75rem rgb(255, 209, 217));
   }
-  /* From uiverse.io by @satyamchaudharydev */
-  /* this button is inspired by -- whatsapp input */
-  /* == type to see fully interactive and click the close buttom to remove the text  == */
 
   .form {
     float: right;
@@ -118,14 +116,14 @@ body::-webkit-scrollbar-track {
     i {
     /* display: block; */
     color: var(--origin-color);
-    transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: 0.2s ;
     position: absolute;
     height: 15px;
   }
    .icon {
     position: absolute;
     left: var(--padding);
-    transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: 0.2s ;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -524,7 +522,7 @@ $main-color: var(--text-color);
         padding: 5px 10px;
         color: var(--text-color);
         margin: 10px 0;
-        transition: .5s;
+        transition: .2s;
         p{
           display: flex;
           align-items: center;

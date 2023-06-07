@@ -361,9 +361,9 @@ inputToggle.checked =  isDarkModeEnabled
 applyDarkMode(isDarkModeEnabled);
 
 let saveTab = containMovie.id
-while(containMovie.id != "playpage"){
-  containMovie.id == saveTab ? document.querySelector("#tab-"+ `${saveTab}`).style.color = "var(--text-color)" : {}
-}
+
+  containMovie.id == saveTab ? document.querySelector("#tab-"+ `${saveTab}`).style.color = "var(--ontab-color)" : {}
+
 
 
 // Hàm áp dụng trạng thái Dark Mode vào giao diện
