@@ -186,11 +186,17 @@ const allImgBanner = document.querySelectorAll(".banner-slider .wrapper .slider 
 const nextSlide = document.querySelector(".banner-slider .wrapper .arrowRight")
 const prevSlide = document.querySelector(".banner-slider .wrapper .arrowLeft")
 const allDots = document.querySelectorAll(".banner-slider .dots .dot")
+
+
 let positionX = 0;
 let currentIndex = 0;
 handleDots()
 function handleDots(){
-
+  allDots.forEach((dot,index)=>{
+    dot.addEventListener('click',()=>{
+      
+    })
+  })
   for(let i =0;i<allDots.length ; i++){
     allDots[i].style.backgroundColor = "var(--ontab-color)"
   }

@@ -315,7 +315,7 @@ body::-webkit-scrollbar-track {
         width: 100%;
         object-fit: contain;
         border-radius: 5px;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
       }
     }
   }
@@ -435,13 +435,14 @@ body::-webkit-scrollbar-track {
     align-items: center;
     justify-content: center;
     margin-bottom: 15px;
-    margin-top: 10px;
+    margin-top: 5px;
 
     img {
       width: 100%;
       transition: 0.2s;
       cursor: pointer;
       border-radius: 5px;
+      max-height: 415px;
     }
 
     img:hover {
@@ -829,6 +830,14 @@ iframe::before {
   }
 
   .banner-slider{
+    .dots{
+
+      .dot{
+
+        width: 5px;
+        height: 5px;
+      }
+    }
     .wrapper {
       i{
         font-size: 30px;
@@ -910,6 +919,14 @@ iframe::before {
 }
 @media (max-width: 360px) {
   .banner-slider{
+    .dots{
+
+      .dot{
+
+        width: 5px;
+        height: 5px;
+      }
+    }
     .wrapper {
       i{
         font-size: 30px;
