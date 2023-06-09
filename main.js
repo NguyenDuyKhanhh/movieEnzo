@@ -239,7 +239,7 @@ let interval = setInterval(handleNextSlide, 3000);
     prevSlide.addEventListener("click", () => {
       handlePrevSlide();
       restartInterval(3000);
-    });
+    });getAllIdToCheck
 let getAllDataPopular = [];
 let getId = [];
 
@@ -295,6 +295,7 @@ Promise.all([
     data[4].results ? checkAndPushMovie(data[4].results) : getAllDataPopular;
     handleData(getAllDataPopular);
     localStorage.setItem("allDataMovies", JSON.stringify(getAllDataPopular));
+
   })
   .catch((error) => {
     loader.style.display = "block";
@@ -320,7 +321,6 @@ function searchMovie() {
   let MoviesSearch = allDataMovies.filter((item) => {
     return item.title.toLowerCase().includes(valueInput);
   });
-
   if (valueInput.length != 0) {
     close.style.opacity = "1";
   }
@@ -340,7 +340,7 @@ function searchMovie() {
         <div className="contain-movies">
           {MoviesSearch.map((item) => (
             <div className="contain-results" id={item.id} key={item.id}>
-              <img src={item.poster_path} />
+              <img src={item.backdrop_path} />
               <ul>
                 <li>{item.title}</li>
                 <p>{item.release_date}</p>

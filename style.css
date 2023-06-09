@@ -36,7 +36,7 @@ body.dark {
   --box-color: #e4e5f1;
   --text-color: #484b6a;
   --background-border: #484b6a2a;
-  --ontab-color: rgb(244, 150, 166);
+  --ontab-color: rgb(248, 137, 156);
   width: 100%;
   height: 100%;
   background-color: var(--background-color);
@@ -147,6 +147,7 @@ body::-webkit-scrollbar-track {
   bottom: 12.5px;
   opacity: 0;
   cursor: pointer;
+  color: var(--ontab-color);
 }
 .header .form input:focus ~ .icon {
   transform: rotate(var(--rotate)) scale(1.3);
@@ -155,7 +156,7 @@ body::-webkit-scrollbar-track {
   opacity: 1;
   transform: rotate(-80deg);
   visibility: visible;
-  color: var(--icon-change-color);
+  color: var(--origin-color);
 }
 .header .form input:focus ~ .icon .bx-search-alt-2 {
   opacity: 0;
@@ -167,7 +168,7 @@ body::-webkit-scrollbar-track {
 .header .form input:valid ~ .icon .bx-left-arrow-alt {
   opacity: 1;
   visibility: visible;
-  color: var(--icon-change-color);
+  color: var(--ontab-color);
 }
 .header .form input:valid ~ .icon .bx-search-alt-2 {
   opacity: 0;
@@ -464,7 +465,7 @@ body::-webkit-scrollbar-track {
 }
 .movie .card h1 {
   font-size: 20px;
-  color: var(--text-color);
+  color: var(--ontab-color);
   text-align: center;
   margin: 10px 0;
   cursor: pointer;
@@ -483,8 +484,8 @@ body::-webkit-scrollbar-track {
   padding: 5px 7px;
   border: none;
   border-radius: 5px;
-  color: var(--box-color);
-  background-color: var(--text-color);
+  color: var(--ontab-color);
+  background-color: var(--box-color);
   cursor: pointer;
 }
 .exchange-page .prev {
@@ -560,7 +561,7 @@ body::-webkit-scrollbar-track {
   z-index: 100;
 }
 .play-page .reference span {
-  color: var(--text-color);
+  color: var(--ontab-color);
 }
 
 iframe {
@@ -601,6 +602,7 @@ iframe::before {
   border-bottom: 1px solid var(--background-border);
   cursor: pointer;
   padding: 10px 0;
+  align-items: center;
 }
 .contain-movies .contain-results img {
   width: 60px;
@@ -615,7 +617,7 @@ iframe::before {
   flex-direction: column;
 }
 .contain-movies .contain-results ul li {
-  color: var(--text-color);
+  color: var(--ontab-color);
   font-size: 15px;
   margin-bottom: 5px;
 }

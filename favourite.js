@@ -42,6 +42,7 @@ function saveID(selector) {
       getCard.addEventListener("click", () => {
         localStorage.setItem("idCard", JSON.stringify(getCard.id));
         window.location.href = "./play-page.html";
+
       });
     });
   }
